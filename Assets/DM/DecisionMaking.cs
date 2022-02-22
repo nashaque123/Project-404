@@ -2,66 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StateMachine
-{
-    eExplore,
-    eRest,
-    eAttack,
-    eRun,
-    eHide
-}
-
-
 public class DecisionMaking : MonoBehaviour
 {
-    private StateMachine state = StateMachine.eExplore;
-    private int stamina, health;
-    //private List<Agent> otherAgents;
+    Animal thisAnimal;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        thisAnimal = gameObject.GetComponent<Animal>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    /*
-     *  void move() {
-     *      change position;
-     *      reduce stamina;
-     *      change state to rest when stamina is low
-     *      
-     *      updateAction()
-     *  } 
-     *  
-     *  
-     *  void checkList() {
-     *      loop through list of visible agents
-     *      if otherAgent is in predatorList then state = run
-     *      
-     *      else if otherAgent is in preyList then state = attack
-     *      
-     *      updateAction()
-     *  }
-     *  
-     *  void updateAction() {
-     *      switch(state) {
-     *          case explore:
-     *              walk about
-     *          case rest:
-     *              restore stamina
-     *          case attack:
-     *              chase prey
-     *          case run:
-     *              run away
-     *          case hide:
-     *              stay in hiding place
-     *      }
-     *  }
-     */
+    }
+    
+    //loop through list of visible agents and checks if they are in either list
+    //updates state machine accordingly
+    public void CheckListOfOtherAgents()
+    {
+        foreach (Animal otherAgent in gameObject.GetComponent<Animal>().VisibleAgentsList)
+        {
+            if (thisAnimal.PredatorList.Contains(otherAgent))
+            {
+                thisAnimal.State = StateMachine.eRun;
+            }
+            else if (thisAnimal.PreyList.Contains(otherAgent))
+            {
+                thisAnimal.State = StateMachine.eAttack;
+            }
+        }
+
+        thisAnimal.UpdateAction();
+    }
 }
