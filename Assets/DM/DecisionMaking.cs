@@ -57,7 +57,10 @@ public class DecisionMaking : MonoBehaviour
      *              restore stamina
      *          case attack:
      *              chase prey
-     *              
+     *          case run:
+     *              run away
+     *          case hide:
+     *              stay in hiding place
      *      }
      *  }
      */

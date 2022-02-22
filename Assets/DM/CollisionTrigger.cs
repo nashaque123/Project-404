@@ -33,6 +33,7 @@ public class CollisionTrigger : MonoBehaviour
     {
         /*
          * if agent is in list then remove
+         * call checkList()
          */
     }
 }
