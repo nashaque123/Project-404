@@ -2,8 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Graph : MonoBehaviour
+
+[RequireComponent(typeof(BoxCollider))]
+
+public class GraphNode : MonoBehaviour
 {
+
+    public float NodeOffset = 0.5f;
+   
+
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
