@@ -15,7 +15,7 @@ public class Animal : MonoBehaviour
 {
     private StateMachine state = StateMachine.eExplore;
     private int stamina, health;
-    private readonly List<Animal> visibleAgentsList;
+    private List<Animal> visibleAgentsList;
 
     [SerializeField]
     private List<Animal> predatorList;
@@ -27,7 +27,7 @@ public class Animal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        visibleAgentsList = new List<Animal>();
     }
 
     // Update is called once per frame

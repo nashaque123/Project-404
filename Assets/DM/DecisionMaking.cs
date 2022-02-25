@@ -34,6 +34,9 @@ public class DecisionMaking : MonoBehaviour
             }
         }
 
+        Debug.Log("list: " + gameObject.GetComponent<Animal>().VisibleAgentsList);
+        Debug.Log("state: " + thisAnimal.State);
+
         thisAnimal.UpdateAction();
     }
 }
