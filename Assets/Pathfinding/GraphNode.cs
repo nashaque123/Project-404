@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(BoxCollider))]
+
 
 public class GraphNode : MonoBehaviour
 {
 
-    public float NodeOffset = 0.5f;
+    
    
-
+  
 
 
 
