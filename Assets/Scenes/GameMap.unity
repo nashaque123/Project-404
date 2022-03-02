@@ -1075,9 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1306bc482e8884dbefdc81b93f90e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collidableLayers:
-    serializedVersion: 2
-    m_Bits: 115
+  uncollidableLayer: 3
 --- !u!1 &1745747364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,6 +1276,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1306bc482e8884dbefdc81b93f90e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collidableLayers:
-    serializedVersion: 2
-    m_Bits: 115
+  uncollidableLayer: 3

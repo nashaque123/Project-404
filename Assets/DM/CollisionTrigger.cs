@@ -7,9 +7,6 @@ public class CollisionTrigger : MonoBehaviour
     private Animal thisAnimal;
     private GameObject parentObject;
 
-    [SerializeField]
-    private LayerMask collidableLayers;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,16 +26,18 @@ public class CollisionTrigger : MonoBehaviour
         if (!other.gameObject.Equals(parentObject))
         {
             Debug.Log(gameObject.transform.parent.name + " colliding with " + other.gameObject.name);
+
             //check if other agent is visible using ray cast
-            if (Physics.Raycast(gameObject.transform.position, other.gameObject.transform.position, out RaycastHit raycast, Mathf.Infinity, collidableLayers))
+            if (Physics.Raycast(gameObject.transform.position, other.gameObject.transform.position, out RaycastHit raycast))
             {
                 Debug.Log("raycast collider: " + raycast.collider);
+                Debug.DrawLine(transform.position, raycast.collider.transform.position, Color.black, 5f, false);
                 //if other agent is visible then add to list
-                if (raycast.collider != null && raycast.collider.gameObject.GetComponent<Animal>() != null)
+                if (raycast.collider != null && raycast.collider.gameObject.GetComponentInParent<Animal>() != null)
                 {
-                    thisAnimal.VisibleAgentsList.Add(raycast.collider.gameObject.GetComponent<Animal>());
-                    gameObject.GetComponent<DecisionMaking>().CheckListOfOtherAgents();
-                    Debug.Log("visible");
+                    thisAnimal.VisibleAgentsList.Add(raycast.collider.gameObject.GetComponentInParent<Animal>());
+                    gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                    Debug.Log(raycast.collider.transform.parent + " visible");
                 }
             }
         }
@@ -52,10 +51,10 @@ public class CollisionTrigger : MonoBehaviour
             Debug.Log(gameObject.transform.parent.name + " not colliding with " + other.gameObject.name);
 
             //if other agent is in list then remove
-            if (thisAnimal.VisibleAgentsList.Contains(other.gameObject.GetComponent<Animal>()))
+            if (thisAnimal.VisibleAgentsList.Contains(other.gameObject.GetComponentInParent<Animal>()))
             {
-                thisAnimal.VisibleAgentsList.Remove(other.gameObject.GetComponent<Animal>());
-                gameObject.GetComponent<DecisionMaking>().CheckListOfOtherAgents();
+                thisAnimal.VisibleAgentsList.Remove(other.gameObject.GetComponentInParent<Animal>());
+                gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
             }
         }
     }
