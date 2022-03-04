@@ -33,7 +33,7 @@ public class Animal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Move();
     }
 
 
@@ -62,6 +62,7 @@ public class Animal : MonoBehaviour
 
     void Move()
     {
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x + Random.Range(-0.5f, 0.5f), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-0.5f, 0.5f));
         //change position;
         //reduce stamina;
         //change state to rest when stamina is low

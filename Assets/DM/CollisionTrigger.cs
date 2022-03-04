@@ -25,19 +25,19 @@ public class CollisionTrigger : MonoBehaviour
     {
         if (!other.gameObject.Equals(parentObject))
         {
-            Debug.Log(gameObject.transform.parent.name + " colliding with " + other.gameObject.name);
-
             //check if other agent is visible using ray cast
             if (Physics.Raycast(gameObject.transform.position, other.gameObject.transform.position, out RaycastHit raycast))
             {
-                Debug.Log("raycast collider: " + raycast.collider);
-                Debug.DrawLine(transform.position, raycast.collider.transform.position, Color.black, 5f, false);
+                Transform agent = GetAgentFromCollision(raycast.collider);
+                Debug.Log("raycast collider: " + agent);
+                Debug.DrawLine(transform.position, agent.position, Color.black, 5f, false);
+
                 //if other agent is visible then add to list
-                if (raycast.collider != null && raycast.collider.gameObject.GetComponentInParent<Animal>() != null)
+                if (raycast.collider != null && agent.gameObject.GetComponent<Animal>() != null)
                 {
-                    thisAnimal.VisibleAgentsList.Add(raycast.collider.gameObject.GetComponentInParent<Animal>());
+                    thisAnimal.VisibleAgentsList.Add(agent.gameObject.GetComponent<Animal>());
                     gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
-                    Debug.Log(raycast.collider.transform.parent + " visible");
+                    Debug.Log(agent + " visible");
                 }
             }
         }
@@ -48,14 +48,26 @@ public class CollisionTrigger : MonoBehaviour
     {
         if (!other.gameObject.Equals(parentObject))
         {
-            Debug.Log(gameObject.transform.parent.name + " not colliding with " + other.gameObject.name);
+            Transform agent = GetAgentFromCollision(other);
 
             //if other agent is in list then remove
-            if (thisAnimal.VisibleAgentsList.Contains(other.gameObject.GetComponentInParent<Animal>()))
+            if (thisAnimal.VisibleAgentsList.Contains(agent.gameObject.GetComponent<Animal>()))
             {
-                thisAnimal.VisibleAgentsList.Remove(other.gameObject.GetComponentInParent<Animal>());
-                gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                thisAnimal.VisibleAgentsList.Remove(agent.gameObject.GetComponent<Animal>());
+                //gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
             }
+        }
+    }
+
+    private Transform GetAgentFromCollision(Collider collider)
+    {
+        if (collider.transform.parent != null)
+        {
+            return collider.transform.parent;
+        }
+        else
+        {
+            return collider.transform;
         }
     }
 }
