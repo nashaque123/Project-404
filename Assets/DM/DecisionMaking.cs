@@ -14,12 +14,14 @@ public enum StateMachine
 public class DecisionMaking : MonoBehaviour
 {
     private Animal thisAnimal;
+    private AgentController agentController;
     private StateMachine state = StateMachine.eExplore;
 
     // Start is called before the first frame update
     void Start()
     {
         thisAnimal = gameObject.GetComponent<Animal>();
+        agentController = gameObject.GetComponent<AgentController>();
     }
 
     // Update is called once per frame
@@ -37,39 +39,19 @@ public class DecisionMaking : MonoBehaviour
             if (thisAnimal.PredatorList.Contains(otherAgent))
             {
                 state = StateMachine.eRun;
+                agentController.Target = otherAgent.gameObject;
             }
-            else if (thisAnimal.PreyList.Contains(otherAgent))
+            else if (thisAnimal.PreyList.Contains(otherAgent) && !state.Equals(StateMachine.eRun))
             {
                 state = StateMachine.eAttack;
+                agentController.Target = otherAgent.gameObject;
             }
         }
 
         //Debug.Log("list: " + gameObject.GetComponent<Animal>().VisibleAgentsList);
         Debug.Log(gameObject.name + " state: " + state);
 
-        UpdateAction();
-    }
-
-    public void UpdateAction()
-    {
-        switch (state)
-        {
-            case StateMachine.eExplore:
-                //walk about
-                break;
-            case StateMachine.eRest:
-                //restore stamina
-                break;
-            case StateMachine.eAttack:
-                //chase prey
-                break;
-            case StateMachine.eRun:
-                //run away
-                break;
-            case StateMachine.eHide:
-                //stay in hiding place
-                break;
-        }
+        agentController.UpdateAction(state);
     }
 
     //change state to rest when stamina is low
@@ -84,6 +66,6 @@ public class DecisionMaking : MonoBehaviour
             state = StateMachine.eExplore;
         }
 
-        UpdateAction();
+        agentController.UpdateAction(state);
     }
 }
