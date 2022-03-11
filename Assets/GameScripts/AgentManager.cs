@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class AgentManager : MonoBehaviour
 {
-    public float StepSize;
     private Rigidbody rb;
     private Animal thisAnimal;
-    [SerializeField]
-    private float staminaCost;
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +17,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        rb.MovePosition(rb.position + (StepSize * Time.deltaTime * moveInput.normalized));
-        thisAnimal.Stamina -= 2;
+        Move();
+    }
+
+    void Move()
+    {
+        Vector3 moveInput = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+        rb.MovePosition(rb.position + (thisAnimal.StepSize * Time.deltaTime * moveInput.normalized));
+        thisAnimal.Stamina -= thisAnimal.StaminaCost;
     }
 }

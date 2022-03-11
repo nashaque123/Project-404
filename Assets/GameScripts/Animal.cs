@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
-    private int stamina, health;
+    private int stamina = 100;
+    private int health = 100;
     private List<Animal> visibleAgentsList;
+    [SerializeField]
+    private float maxStepSize;
+    [HideInInspector]
+    public float StepSize;
+    [SerializeField]
+    private int staminaCost;
+
+    //string to manage speed caps based on stamina levels
+    private string speedBuffer = "max";
 
     [SerializeField]
     private List<Animal> predatorList;
@@ -20,22 +30,24 @@ public class Animal : MonoBehaviour
         visibleAgentsList = new List<Animal>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetStepSizeOnStaminaLevel()
     {
-
+        if (stamina > 60 && !speedBuffer.Equals("max"))
+        {
+            StepSize = maxStepSize;
+            speedBuffer = "max";
+        }
+        else if (stamina < 60 && !speedBuffer.Equals("60"))
+        {
+            StepSize = maxStepSize * 0.7f;
+            speedBuffer = "60";
+        }
+        else if (stamina < 20 && !speedBuffer.Equals("20"))
+        {
+            StepSize = maxStepSize * 0.3f;
+            speedBuffer = "20";
+        }
     }
-
-    //TODO: move to agent movement script
-    /* void Move()
-     {
-         gameObject.transform.position = new Vector3(gameObject.transform.position.x + Random.Range(-0.5f, 0.5f), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-0.5f, 0.5f));
-         //change position;
-         //reduce stamina;
-         //change state to rest when stamina is low
-
-         //updateAction();
-     }*/
 
     public int Stamina
     {
@@ -56,6 +68,38 @@ public class Animal : MonoBehaviour
             {
                 stamina = 100;
             }
+
+            SetStepSizeOnStaminaLevel();
+        }
+    }
+
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+
+        set
+        {
+            health = value;
+
+            if (health < 0)
+            {
+                health = 0;
+            }
+            else if (health > 100)
+            {
+                health = 100;
+            }
+        }
+    }
+
+    public int StaminaCost
+    {
+        get
+        {
+            return staminaCost;
         }
     }
 

@@ -25,16 +25,7 @@ public class DecisionMaking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (state == StateMachine.eExplore && thisAnimal.Stamina < 20)
-        {
-            state = StateMachine.eRest;
-            UpdateAction();
-        }
-        else if (state == StateMachine.eRest && thisAnimal.Stamina > 90)
-        {
-            state = StateMachine.eExplore;
-            UpdateAction();
-        }
+        CheckStamina();
     }
 
     //loop through list of visible agents and checks if they are in either list
@@ -79,5 +70,20 @@ public class DecisionMaking : MonoBehaviour
                 //stay in hiding place
                 break;
         }
+    }
+
+    //change state to rest when stamina is low
+    private void CheckStamina()
+    {
+        if (state == StateMachine.eExplore && thisAnimal.Stamina < 20)
+        {
+            state = StateMachine.eRest;
+        }
+        else if (state == StateMachine.eRest && thisAnimal.Stamina > 90)
+        {
+            state = StateMachine.eExplore;
+        }
+
+        UpdateAction();
     }
 }
