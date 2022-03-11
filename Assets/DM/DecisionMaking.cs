@@ -2,9 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum StateMachine
+{
+    eExplore,
+    eRest,
+    eAttack,
+    eRun,
+    eHide
+}
+
 public class DecisionMaking : MonoBehaviour
 {
-    Animal thisAnimal;
+    private Animal thisAnimal;
+    private StateMachine state = StateMachine.eExplore;
 
     // Start is called before the first frame update
     void Start()
@@ -15,28 +25,59 @@ public class DecisionMaking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (state == StateMachine.eExplore && thisAnimal.Stamina < 20)
+        {
+            state = StateMachine.eRest;
+            UpdateAction();
+        }
+        else if (state == StateMachine.eRest && thisAnimal.Stamina > 90)
+        {
+            state = StateMachine.eExplore;
+            UpdateAction();
+        }
     }
-    
+
     //loop through list of visible agents and checks if they are in either list
     //updates state machine accordingly
     public void CheckListOfOtherAgents()
     {
-        foreach (Animal otherAgent in gameObject.GetComponent<Animal>().VisibleAgentsList)
+        foreach (Animal otherAgent in thisAnimal.VisibleAgentsList)
         {
             if (thisAnimal.PredatorList.Contains(otherAgent))
             {
-                thisAnimal.State = StateMachine.eRun;
+                state = StateMachine.eRun;
             }
             else if (thisAnimal.PreyList.Contains(otherAgent))
             {
-                thisAnimal.State = StateMachine.eAttack;
+                state = StateMachine.eAttack;
             }
         }
 
         //Debug.Log("list: " + gameObject.GetComponent<Animal>().VisibleAgentsList);
-        Debug.Log(gameObject.name + " state: " + thisAnimal.State);
+        Debug.Log(gameObject.name + " state: " + state);
 
-        thisAnimal.UpdateAction();
+        UpdateAction();
+    }
+
+    public void UpdateAction()
+    {
+        switch (state)
+        {
+            case StateMachine.eExplore:
+                //walk about
+                break;
+            case StateMachine.eRest:
+                //restore stamina
+                break;
+            case StateMachine.eAttack:
+                //chase prey
+                break;
+            case StateMachine.eRun:
+                //run away
+                break;
+            case StateMachine.eHide:
+                //stay in hiding place
+                break;
+        }
     }
 }
