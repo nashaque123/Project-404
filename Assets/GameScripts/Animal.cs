@@ -23,11 +23,22 @@ public class Animal : MonoBehaviour
     [SerializeField]
     private List<Animal> preyList;
 
+    public HealthBarUI healthBarUI;
+
 
     // Start is called before the first frame update
     void Start()
     {
         visibleAgentsList = new List<Animal>();
+        healthBarUI.UpdateSlider(health);
+    }
+
+    private void Update()
+    {
+        if (Random.Range(0, 100) == 0)
+        {
+            TakeDamage(5);
+        }
     }
 
     private void SetStepSizeOnStaminaLevel()
@@ -47,6 +58,18 @@ public class Animal : MonoBehaviour
             StepSize = maxStepSize * 0.3f;
             speedBuffer = "20";
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            health = 0;
+            //dead
+        }
+
+        healthBarUI.UpdateSlider(health);
     }
 
     public int Stamina
