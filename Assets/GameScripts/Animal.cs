@@ -13,6 +13,8 @@ public class Animal : MonoBehaviour
     public float StepSize;
     [SerializeField]
     private float staminaCost;
+    [SerializeField]
+    private float attackRange;
 
     //string to manage speed caps based on stamina levels
     private string speedBuffer = "max";
@@ -107,6 +109,14 @@ public class Animal : MonoBehaviour
         get
         {
             return staminaCost;
+        }
+    }
+
+    public float AttackRange
+    {
+        get
+        {
+            return attackRange;
         }
     }
 

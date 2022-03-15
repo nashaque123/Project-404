@@ -28,13 +28,13 @@ public class CollisionTrigger : MonoBehaviour
             //check if other agent is visible using ray cast
             if (Physics.Raycast(gameObject.transform.position, other.gameObject.transform.position, out RaycastHit raycast))
             {
-                Transform collisionObject = GetParentFromCollision(raycast.collider);
-                Debug.Log("raycast collider: " + collisionObject);
-                Debug.DrawLine(transform.position, collisionObject.position, Color.black, 5f, false);
-
                 //if other object is visible then check what it is
                 if (raycast.collider != null)
                 {
+                    Transform collisionObject = GameObjectExtension.GetParentFromCollision(raycast.collider);
+                    Debug.Log("raycast collider: " + collisionObject);
+                    Debug.DrawLine(transform.position, collisionObject.position, Color.black, 5f, false);
+
                     //if agent then add to list
                     if (collisionObject.gameObject.GetComponent<Animal>() != null)
                     {
@@ -56,7 +56,7 @@ public class CollisionTrigger : MonoBehaviour
     {
         if (!other.gameObject.Equals(parentObject))
         {
-            Transform agent = GetParentFromCollision(other);
+            Transform agent = GameObjectExtension.GetParentFromCollision(other);
 
             //if other agent is in list then remove
             if (thisAnimal.VisibleAgentsList.Contains(agent.gameObject.GetComponent<Animal>()))
@@ -64,18 +64,6 @@ public class CollisionTrigger : MonoBehaviour
                 thisAnimal.VisibleAgentsList.Remove(agent.gameObject.GetComponent<Animal>());
                 //gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
             }
-        }
-    }
-
-    private Transform GetParentFromCollision(Collider collider)
-    {
-        if (collider.transform.parent != null)
-        {
-            return collider.transform.parent;
-        }
-        else
-        {
-            return collider.transform;
         }
     }
 }

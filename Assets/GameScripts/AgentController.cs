@@ -66,6 +66,26 @@ public class AgentController : MonoBehaviour
         }
     }
 
+    //check if other agent is within attacking range
+    private bool EnemyAgentWithinRange()
+    {
+        //check if any objects are blocking path to agent
+        if (Physics.Raycast(transform.position, target.transform.position, out RaycastHit raycast))
+        {
+            if (raycast.collider != null)
+            {
+                Transform collisionObject = GameObjectExtension.GetParentFromCollision(raycast.collider);
+
+                if (collisionObject.GetComponent<Animal>() != null && collisionObject.Equals(target) && Vector3.Distance(transform.position, target.transform.position) <= thisAnimal.AttackRange)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public GameObject Target
     {
         get
@@ -77,5 +97,5 @@ public class AgentController : MonoBehaviour
         {
             target = value;
         }
-    }    
+    }
 }
