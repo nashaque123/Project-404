@@ -39,17 +39,22 @@ public class DecisionMaking : MonoBehaviour
             if (thisAnimal.PredatorList.Contains(otherAgent))
             {
                 state = StateMachine.eRun;
-                agentController.Target = otherAgent.gameObject;
+
+                if (Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
+                {
+                    agentController.Target = otherAgent.gameObject;
+                }
             }
             else if (thisAnimal.PreyList.Contains(otherAgent) && !state.Equals(StateMachine.eRun))
             {
                 state = StateMachine.eAttack;
-                agentController.Target = otherAgent.gameObject;
+
+                if (Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
+                {
+                    agentController.Target = otherAgent.gameObject;
+                }
             }
         }
-
-        //Debug.Log("list: " + gameObject.GetComponent<Animal>().VisibleAgentsList);
-        Debug.Log(gameObject.name + " state: " + state);
 
         agentController.UpdateAction(state);
     }
