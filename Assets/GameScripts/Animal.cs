@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
-    private int stamina = 100;
-    private int health = 100;
+    private float stamina = 100;
+    private float health = 100;
     private List<Animal> visibleAgentsList;
     [SerializeField]
     private float maxStepSize;
     [HideInInspector]
     public float StepSize;
     [SerializeField]
-    private int staminaCost;
+    private float staminaCost;
 
     //string to manage speed caps based on stamina levels
     private string speedBuffer = "max";
@@ -23,22 +23,14 @@ public class Animal : MonoBehaviour
     [SerializeField]
     private List<Animal> preyList;
 
-    public HealthBarUI healthBarUI;
+    public StatusBarUI healthBarUI;
+    public StatusBarUI staminaBarUI;
 
 
     // Start is called before the first frame update
     void Start()
     {
         visibleAgentsList = new List<Animal>();
-        healthBarUI.UpdateSlider(health);
-    }
-
-    private void Update()
-    {
-        if (Random.Range(0, 100) == 0)
-        {
-            TakeDamage(5);
-        }
     }
 
     private void SetStepSizeOnStaminaLevel()
@@ -60,19 +52,7 @@ public class Animal : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            health = 0;
-            //dead
-        }
-
-        healthBarUI.UpdateSlider(health);
-    }
-
-    public int Stamina
+    public float Stamina
     {
         get
         {
@@ -93,10 +73,11 @@ public class Animal : MonoBehaviour
             }
 
             SetStepSizeOnStaminaLevel();
+            staminaBarUI.UpdateSlider(stamina);
         }
     }
 
-    public int Health
+    public float Health
     {
         get
         {
@@ -110,15 +91,18 @@ public class Animal : MonoBehaviour
             if (health < 0)
             {
                 health = 0;
+                //dead
             }
             else if (health > 100)
             {
                 health = 100;
             }
+
+            healthBarUI.UpdateSlider(health);
         }
     }
 
-    public int StaminaCost
+    public float StaminaCost
     {
         get
         {

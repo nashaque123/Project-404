@@ -28,7 +28,7 @@ public class AgentController : MonoBehaviour
             else
             {
                 //rest
-                thisAnimal.Stamina++;
+                thisAnimal.Stamina += 0.1f;
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarUI : MonoBehaviour
+public class StatusBarUI : MonoBehaviour
 {
     private Slider slider;
 
@@ -12,9 +12,10 @@ public class HealthBarUI : MonoBehaviour
     {
         slider = gameObject.GetComponent<Slider>();
         slider.maxValue = 100;
+        slider.value = 100;
     }
 
-    public void UpdateSlider(int value)
+    public void UpdateSlider(float value)
     {
         slider.value = value;
     }

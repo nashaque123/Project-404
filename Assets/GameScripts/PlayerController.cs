@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     private Animal thisAnimal;
+    private Vector3 moveInput;
 
     // Start is called before the first frame update
     void Start()
@@ -17,9 +18,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        rb.MovePosition(rb.position + (thisAnimal.StepSize * Time.deltaTime * moveInput.normalized));
-        thisAnimal.Stamina -= thisAnimal.StaminaCost;
+        moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        if (moveInput.magnitude > 0)
+        {
+            rb.MovePosition(rb.position + (thisAnimal.StepSize * Time.deltaTime * moveInput.normalized));
+            thisAnimal.Stamina -= thisAnimal.StaminaCost;
+        }
 
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 0"))
         {
