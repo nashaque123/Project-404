@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITaskNode
+public interface IComposite : INode
 {
-    public Composite Parent
+    public List<INode> ChildNodes
     {
         get;
         set;
     }
-
-    public bool Action();
 }

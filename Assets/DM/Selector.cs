@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Selector : Composite
+public class Selector : IComposite
 {
-    public override bool Execute()
+    public List<INode> ChildNodes { get; set; }
+
+    public bool Run()
     {
-        foreach (ITaskNode child in ChildNodes)
+        foreach (INode child in ChildNodes)
         {
-            if (child.Action())
+            if (child.Run())
             {
                 return true;
             }

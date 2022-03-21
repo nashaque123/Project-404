@@ -67,7 +67,7 @@ public class AgentController : MonoBehaviour
     }
 
     //check if other agent is within attacking range
-    private bool EnemyAgentWithinRange()
+    public bool EnemyAgentWithinRange()
     {
         //check if any objects are blocking path to agent
         if (Physics.Raycast(transform.position, target.transform.position, out RaycastHit raycast))
