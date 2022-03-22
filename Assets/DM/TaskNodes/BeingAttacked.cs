@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeingAttacked : MonoBehaviour, INode
+public class BeingAttacked : INode
 {
     private AgentController thisAgent;
 
-    // Start is called before the first frame update
-    private void Start()
+    public BeingAttacked(AgentController agent)
     {
-        thisAgent = gameObject.GetComponent<AgentController>();
+        thisAgent = agent;
     }
 
     public bool Run()

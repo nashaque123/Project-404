@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthOrStaminaLow : MonoBehaviour, INode
+public class HealthOrStaminaLow : INode
 {
     private Animal thisAnimal;
     private readonly float threshold = 30f;
 
-    // Start is called before the first frame update
-    void Start()
+    public HealthOrStaminaLow(Animal animal)
     {
-        thisAnimal = gameObject.GetComponent<Animal>();
+        thisAnimal = animal;
     }
 
     public bool Run()
