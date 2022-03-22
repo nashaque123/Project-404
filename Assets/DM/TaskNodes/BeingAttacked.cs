@@ -13,6 +13,7 @@ public class BeingAttacked : INode
 
     public bool Run()
     {
-        return thisAgent.EnemyAgentWithinRange();
+        //return thisAgent.EnemyAgentWithinRange();
+        return false;
     }
 }

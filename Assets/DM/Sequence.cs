@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Sequence : IComposite
 {
+    public Sequence()
+    {
+        ChildNodes = new List<INode>();
+    }
+
     public List<INode> ChildNodes { get; set; }
 
     public bool Run()

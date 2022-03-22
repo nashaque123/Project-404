@@ -7,7 +7,6 @@ public class RootNode : MonoBehaviour
     private AgentController thisAgent;
     private Animal thisAnimal;
 
-    public List<INode> DecisionTree = new List<INode>();
     private Selector rootSelector = new Selector();
     private Sequence attackedSequence = new Sequence();
     private INode isBeingAttackedNode;
@@ -22,6 +21,8 @@ public class RootNode : MonoBehaviour
     private INode restNode;
     private INode exploreNode = new Explore();
 
+    int counter = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,6 @@ public class RootNode : MonoBehaviour
         isHealthOrStaminaLowNode = new HealthOrStaminaLow(thisAnimal);
         restNode = new Rest(thisAnimal);
 
-        DecisionTree.Add(rootSelector);
         rootSelector.ChildNodes.Add(attackedSequence);
         rootSelector.ChildNodes.Add(checkVitalsSequence);
         rootSelector.ChildNodes.Add(exploreNode);
@@ -50,6 +50,12 @@ public class RootNode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (counter == 100)
+        {
+            bool result = rootSelector.Run();
+            counter = 0;
+            Debug.Log("test " + result + Time.frameCount);
+        }
+        counter++;
     }
 }
