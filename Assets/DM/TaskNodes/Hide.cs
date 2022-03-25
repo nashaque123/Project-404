@@ -7,6 +7,6 @@ public class Hide : INode
     public bool Run()
     {
         //hide
-        return true;
+        return false;
     }
 }

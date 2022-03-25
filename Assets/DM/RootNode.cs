@@ -6,6 +6,7 @@ public class RootNode : MonoBehaviour
 {
     private AgentController thisAgent;
     private Animal thisAnimal;
+    private PreyWithTraps thisPreyWithTraps;
 
     private Selector rootSelector = new Selector();
     private Sequence attackedSequence = new Sequence();
@@ -13,8 +14,8 @@ public class RootNode : MonoBehaviour
     private Selector runAwaySelector = new Selector();
     private INode hideNode = new Hide();
     private Sequence trapSequence = new Sequence();
-    private INode isAbleToSetTrapNode = new AbleToSetTrap();
-    private INode setTrapNode = new SetTrap();
+    private INode isAbleToSetTrapNode;
+    private INode setTrapNode;
     private INode runAwayNode = new RunAway();
     private Sequence checkVitalsSequence = new Sequence();
     private INode isHealthOrStaminaLowNode;
@@ -28,8 +29,11 @@ public class RootNode : MonoBehaviour
     {
         thisAgent = gameObject.GetComponent<AgentController>();
         thisAnimal = gameObject.GetComponent<Animal>();
+        thisPreyWithTraps = gameObject.GetComponent<PreyWithTraps>();
 
         isBeingAttackedNode = new BeingAttacked(thisAgent);
+        isAbleToSetTrapNode = new AbleToSetTrap(thisPreyWithTraps);
+        setTrapNode = new SetTrap(thisPreyWithTraps);
         isHealthOrStaminaLowNode = new HealthOrStaminaLow(thisAnimal);
         restNode = new Rest(thisAnimal);
 
@@ -54,7 +58,7 @@ public class RootNode : MonoBehaviour
         {
             bool result = rootSelector.Run();
             counter = 0;
-            Debug.Log("test " + result + Time.frameCount);
+//            Debug.Log("test " + result + Time.frameCount);
         }
         counter++;
     }
