@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
-    public float MovementSpeed = 2.5f;
+    public float MovementSpeed = 5.0f;
 
     private Stack<Vector3> activePath;
     private Vector3 activeWaypointPos;
@@ -24,7 +24,31 @@ public class PathManager : MonoBehaviour
 
         openList.Add(0, activeNode);
         activeNode.previous = null;
-        //activeNode.distance = 0f;
+        activeNode.distance = 0f;
+        while (openList.Count > 0 )
+        {
+            activeNode = openList.Values[0];
+            openList.RemoveAt(0);
+            var dist = activeNode.distance;
+            closedList.Add(activeNode);
+            if (activeNode == endNode)
+            {
+                break;
+            }
+            foreach(var neighbour in activeNode.neighbours)
+            {
+                if (closedList.Contains(neighbour) || openList.ContainsValue(neighbour))
+                    continue;
+                neighbour.previous = activeNode;
+                neighbour.distance = dist + (neighbour.transform.position - activeNode.transform.position).magnitude;
+                var targetDistance = (neighbour.transform.position - endNode.transform.position).magnitude;
+                openList.Add(neighbour.distance + targetDistance, neighbour);
+
+                
+            }
+        }
+
+
 
     }
     public void Stop() { }

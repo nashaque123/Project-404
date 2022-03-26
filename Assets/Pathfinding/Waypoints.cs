@@ -12,7 +12,7 @@ public class Waypoints : MonoBehaviour
         set;
     }
 
-    public Waypoints distance
+    public float distance
     {
         get;
         set;
