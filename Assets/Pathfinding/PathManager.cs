@@ -13,6 +13,8 @@ public class PathManager : MonoBehaviour
 
     public void NavigateTo(Vector3 destination)
     {
+        // A* Implemention
+
         activePath = new Stack<Vector3>();
         var activeNode = FindNearestWaypoint(transform.position);
         var endNode = FindNearestWaypoint(destination);
@@ -51,11 +53,37 @@ public class PathManager : MonoBehaviour
 
 
     }
-    public void Stop() { }
+    public void Stop()
+    {
+        activePath = null;
+        movingTimeTotal = 0;
+        movingTimeCurr = 0;
+    }
 
     void Update()
     {
-
+        // follow path
+        if (activePath != null && activePath.Count > 0)
+        {
+            if(movingTimeCurr < movingTimeTotal)
+            {
+                movingTimeCurr += Time.deltaTime;
+                if (movingTimeCurr < movingTimeTotal)
+                    movingTimeCurr = movingTimeTotal;
+                transform.position = Vector3.Lerp(activeWaypointPos, activePath.Peek(), movingTimeCurr / movingTimeTotal);
+            }
+            else
+            {
+                activeWaypointPos = activePath.Pop();
+                if (activePath.Count == 0)
+                    Stop();
+                else
+                {
+                    movingTimeCurr = 0;
+                    movingTimeTotal = (activeWaypointPos - activePath.Peek()).magnitude / MovementSpeed;
+                }
+            }
+        }
     }
 
  
