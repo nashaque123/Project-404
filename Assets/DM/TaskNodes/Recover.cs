@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rest : INode
+public class Recover : INode
 {
     private Animal thisAnimal;
-    private readonly float recoverySpeed = 0.4f;
+    private readonly float recoverySpeed = 0.5f;
 
-    public Rest(Animal animal)
+    public Recover(Animal animal)
     {
         thisAnimal = animal;
     }
 
     public bool Run()
     {
+        thisAnimal.Health += recoverySpeed;
         thisAnimal.Stamina += recoverySpeed;
         return true;
     }

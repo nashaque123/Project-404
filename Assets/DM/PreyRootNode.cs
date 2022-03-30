@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RootNode : MonoBehaviour
+public class PreyRootNode : MonoBehaviour
 {
     private AgentController thisAgent;
     private Animal thisAnimal;
@@ -35,7 +35,7 @@ public class RootNode : MonoBehaviour
         isAbleToSetTrapNode = new AbleToSetTrap(thisPreyWithTraps);
         setTrapNode = new SetTrap(thisPreyWithTraps);
         isHealthOrStaminaLowNode = new HealthOrStaminaLow(thisAnimal);
-        restNode = new Rest(thisAnimal);
+        restNode = new Recover(thisAnimal);
 
         rootSelector.ChildNodes.Add(attackedSequence);
         rootSelector.ChildNodes.Add(checkVitalsSequence);
