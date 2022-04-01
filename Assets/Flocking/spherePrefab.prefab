@@ -129,3 +129,8 @@ MonoBehaviour:
   radius: 10
   neighbourCollider: {fileID: 0}
   agentNumber: 5
+  neighbours: []
+  velocity: {x: 0, y: 0, z: 0}
+  alignmentFactor: 0.1
+  cohesionFactor: 0.1
+  seperationFactor: 0.1
