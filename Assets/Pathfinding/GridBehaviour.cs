@@ -5,8 +5,8 @@ using UnityEngine;
 public class GridBehaviour : MonoBehaviour
 {
 
-    public int gridRows = 20;
-    public int gridColumns = 20;
+    public int gridRows = 10;
+    public int gridColumns = 10;
     public int scale = 1;
     public GameObject gridPrefab;
     public Vector3 bottomLeftLocation = new Vector3(0,0,0);
