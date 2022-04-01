@@ -27,7 +27,7 @@ public class PredatorDecisionTree : MonoBehaviour
             }
             else
             {
-                if (Random.Range(0, 5) == 0)
+                if (Random.Range(0, 30) == 0)
                 {
                     //growl
                     Growl();

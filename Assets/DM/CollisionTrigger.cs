@@ -42,7 +42,7 @@ public class CollisionTrigger : MonoBehaviour
                         gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
                         Debug.Log(collisionObject + " visible");
                     }
-                    else if (collisionObject.gameObject.CompareTag("Hiding spot"))
+                    else if (collisionObject.gameObject.layer == 7) //check if object has hiding spot layer
                     {
                         Debug.Log("visible hiding spot " + collisionObject);
                     }
