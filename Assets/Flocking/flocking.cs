@@ -9,11 +9,11 @@ public class flocking : MonoBehaviour
     public int agentNumber = 5;
     public List<GameObject> neighbours;
     public Vector3 velocity;
+    public Vector3 velocity2;
 
-    public float alignmentFactor=0.1f;
+    public float alignmentFactor = 0.1f;
     public float cohesionFactor = 0.1f;
     public float seperationFactor = 0.1f;
-
 
 
     // Start is called before the first frame update
@@ -26,25 +26,24 @@ public class flocking : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 alignemt = new Vector3(0, 0, 0);
+        Debug.Log(gameObject.name + " " + neighbours.Count);
+
+        Vector3 alignment = new Vector3(0, 0, 0);
         //Alignment
 
-
-
-
         //for each agent
-
         foreach (GameObject neighbour in neighbours)
         {
-            alignemt += neighbour.GetComponent<flocking>().velocity; 
+            alignment += neighbour.GetComponent<flocking>().velocity; 
         }
-        //Add velocity
-        //end for
-        //divide by number of agents
 
-        alignemt = alignemt/neighbours.Count;
+        //divide by number of agents
+        if (neighbours.Count > 0)
+        {
+            alignment = alignment/neighbours.Count;
+        }
 
 
         //Cohesion
@@ -55,7 +54,10 @@ public class flocking : MonoBehaviour
             cohesion += neighbour.transform.position;
         }
 
-        cohesion = cohesion / neighbours.Count;
+        if (neighbours.Count > 0)
+        {
+            cohesion = cohesion / neighbours.Count;
+        }
 
 
         //Seperation
@@ -66,12 +68,15 @@ public class flocking : MonoBehaviour
             seperation += gameObject.transform.position - neighbour.transform.position;
         }
 
-        seperation = seperation / neighbours.Count;
+        if (neighbours.Count > 0)
+        {
+            seperation = seperation / neighbours.Count;
+        }
 
-        velocity = (alignmentFactor * alignemt + cohesionFactor * cohesion + seperationFactor * seperation);
 
+        velocity2 = (velocity + (alignmentFactor * alignment + cohesionFactor * cohesion + seperationFactor * seperation)) / 2;
         //Movement
-        transform.Translate(velocity * Time.deltaTime);
+        transform.Translate(velocity2 * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider collision)
@@ -94,5 +99,4 @@ public class flocking : MonoBehaviour
             //Debug.Log(neighbours.Count);
         }
     }
-
 }

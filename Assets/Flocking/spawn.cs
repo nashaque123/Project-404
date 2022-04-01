@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class spawn : MonoBehaviour
 {
+    public Vector3 newPosition;
     private int i = 0;
     [SerializeField] private GameObject agent;
 
@@ -18,7 +19,8 @@ public class spawn : MonoBehaviour
 
     private void spawnIn()
     {
-        Instantiate(agent, transform.position, Quaternion.identity);
+        newPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+        Instantiate(agent, transform.position + newPosition, Quaternion.identity);
         i++;
     }
 }
