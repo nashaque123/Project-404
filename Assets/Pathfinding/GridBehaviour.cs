@@ -111,6 +111,14 @@ public class GridBehaviour : MonoBehaviour
 
     void TestFourDirections(int x, int y, int step)
     {
+        if (TestDirection(x, y, -1, 1))
+            setUpTraveledTo(x, y +1, step);
+        if (TestDirection(x, y, -1, 2))
+            setUpTraveledTo(x + 1, y, step);
+        if (TestDirection(x, y, -1, 3))
+            setUpTraveledTo(x, y - 1, step);
+        if (TestDirection(x, y, -1, 4))
+            setUpTraveledTo(x - 1, y, step);
 
     }
     void setUpTraveledTo(int x, int y, int step)
