@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GridBehaviour : MonoBehaviour
 {
-
+    public bool FindDis = false;
     public int gridRows = 10;
     public int gridColumns = 10;
     public int scale = 1;
@@ -15,7 +15,7 @@ public class GridBehaviour : MonoBehaviour
     public int startingY = 0;
     public int endingX = 5;
     public int endingY = 5;
-
+    public List<GameObject> path = new List<GameObject>();
 
 
     // Start is called before the first frame update
@@ -30,7 +30,12 @@ public class GridBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(FindDis)
+        {
+            SetDistance();
+            setPath();
+            FindDis = false;
+        }
     }
 
     void GridGeneration()
@@ -49,6 +54,43 @@ public class GridBehaviour : MonoBehaviour
         }
     }
 
+    void setPath()
+    {
+        int step;
+        int x = endingX;
+        int y = endingY;
+        List<GameObject> tempList = new List<GameObject>();
+        path.Clear();
+        if (gridArray[endingX, endingY] && gridArray[endingX, endingY].GetComponent<GridInfo>().traveledTo > 0)
+        {
+            path.Add(gridArray[x, y]);
+                step = gridArray[x, y].GetComponent<GridInfo>().traveledTo - 1;
+        }
+        else
+        {
+            print("Unable to Reach location");
+            return;
+        }
+        for (int i = step; step < -1; step--)
+        {
+            if (TestDirection(x, y, step, 1))
+                tempList.Add(gridArray[x, y + 1]);
+            if (TestDirection(x, y, step, 2))
+                tempList.Add(gridArray[x + 1, y]);
+            if (TestDirection(x, y, step, 3))
+                tempList.Add(gridArray[x, y - 1]);
+            if (TestDirection(x, y, step, 4))
+                tempList.Add(gridArray[x -1, y]);
+
+            GameObject tempObj = FindClosestPath(gridArray[endingX, endingY].transform, tempList);
+            path.Add(tempObj);
+            x = tempObj.GetComponent<GridInfo>().x;
+            y = tempObj.GetComponent<GridInfo>().y;
+            tempList.Clear();
+        }
+
+        
+    }
 
     void SetDistance()
     {
@@ -60,7 +102,7 @@ public class GridBehaviour : MonoBehaviour
         {
             foreach(GameObject obj in gridArray)
             {
-                if (obj.GetComponent<GridInfo>().traveledTo == step - 1)
+                if (obj&&obj.GetComponent<GridInfo>().traveledTo == step - 1)
                     TestFourDirections(obj.GetComponent<GridInfo>().x, obj.GetComponent<GridInfo>().y, step);
             }
         }
@@ -126,6 +168,20 @@ public class GridBehaviour : MonoBehaviour
         if (gridArray[x, y])
             gridArray[x, y].GetComponent<GridInfo>().traveledTo = step;
 
+    }
+    GameObject FindClosestPath(Transform targetLocation, List<GameObject> list)
+    {
+        float currentDis = scale * gridRows * gridColumns;
+        int indexNum = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (Vector3.Distance(targetLocation.position,list[i].transform.position)<currentDis)
+            {
+                currentDis = Vector3.Distance(targetLocation.position, list[i].transform.position);
+                indexNum = i;
+            }
+        }
+        return list[indexNum];
     }
 }
   

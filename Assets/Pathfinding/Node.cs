@@ -2,52 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node
 {
-    bool isAccsessible;
-    List<Node> neigbours;
-    List<GameObject> Obstructions;
-    // Start is called before the first frame update
-    void Start()
+    public int gridPosX; // X pos
+    public int gridPosY; // Y pos
+    public bool IsObstruction; // tells the program if there is an obstruction.
+    public Vector3 Position; // world pos of node.
+
+    public Node Parent; // used for A* algorithm, stores the prev node so can work out shortest path.
+
+    public int gCost; // cost of movement to the square.
+    public int hCost; // distance to goal from current node.
+    public int FCost { get { return gCost + hCost; } }
+
+    public Node(bool m_IsObstruction, Vector3 m_Pos, int m_GridX, int m_GridY) 
     {
-        neigbours = new List<Node>();
-
-        Obstructions = new List<GameObject>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-
-        // get game object for collision
-
-        //check if node tag in game object
-
-        // get node component
-
-        // add to neigbours
-
-        // check if node is accsessible
-        if (collision.gameObject.CompareTag("Node"))
-        {
-            neigbours.Add(collision.gameObject.GetComponent<Node>());
-
-        }
-        else if(collision.gameObject.CompareTag("Obstruction"))
-        {
-            Obstructions.Add(collision.gameObject);
-        }
-
-        isAccsessible = Obstructions.Count==0;
-       
+        IsObstruction = m_IsObstruction;
+        Position = m_Pos;
+        gridPosX = m_GridX;
+        gridPosY = m_GridY;
 
     }
-
-    // collison exit
-    // 
-    
 }
