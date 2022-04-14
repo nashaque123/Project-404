@@ -43,7 +43,9 @@ public class Pathfinding : MonoBehaviour
             if(CurrentNode == targetNode)
             {
                 GetFinalPath(StartingNode, targetNode);
+                
             }
+            
 
             foreach(Node NeighbourNode in grid.GetNeighbouringNodes(CurrentNode))
             {

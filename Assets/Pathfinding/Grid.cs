@@ -28,19 +28,19 @@ public class Grid : MonoBehaviour
     {
         grid = new Node[gridSizeX, gridSizeY];
         Vector3 BottomLeft = transform.position - Vector3.right * gridWorldsize.x / 2 - Vector3.forward * gridWorldsize.y / 2;
-        for(int y = 0; y < gridSizeX; y++)
+        for(int x = 0; x < gridSizeX; x++)
         {
-            for(int x =0; x < gridSizeY; x++)
+            for(int y =0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = BottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool Obstruction = false;
+                bool Obstruction = true;
 
                 if(Physics.CheckSphere(worldPoint, nodeRadius, ObstructionMask))
                 {
-                    Obstruction = true;
+                    Obstruction = false;
                 }
 
-                grid[y, x] = new Node(Obstruction, worldPoint, x, y);
+                grid[x, y] = new Node(Obstruction, worldPoint, x, y);
             }
         }
     }
@@ -48,7 +48,7 @@ public class Grid : MonoBehaviour
     public Node NodeFromWorldPos(Vector3 m_worldPos)
     {
         float xPoint = ((m_worldPos.x + gridWorldsize.x / 2) / gridWorldsize.x);
-        float yPoint = ((m_worldPos.y + gridWorldsize.y / 2) / gridWorldsize.y);
+        float yPoint = ((m_worldPos.z + gridWorldsize.y / 2) / gridWorldsize.y);
 
         xPoint = Mathf.Clamp01(xPoint);
         yPoint = Mathf.Clamp01(yPoint);
@@ -83,6 +83,52 @@ public class Grid : MonoBehaviour
 
             }
         }
+        //int xCheck;
+        //int yCheck;
+
+        //// Right check
+        //xCheck = m_Node.gridPosX + 1;
+        //yCheck = m_Node.gridPosY;
+        //if (xCheck >= 0 && xCheck < gridSizeX)
+        //{
+        //    if (yCheck >= 0 && yCheck < gridSizeY)
+        //    {
+        //        NeighbouringNodes.Add(grid[xCheck, yCheck]);
+        //    }
+        //}
+        //// left check
+        //xCheck = m_Node.gridPosX - 1;
+        //yCheck = m_Node.gridPosY;
+        //if (xCheck >= 0 && xCheck < gridSizeX)
+        //{
+        //    if (yCheck >= 0 && yCheck < gridSizeY)
+        //    {
+        //        NeighbouringNodes.Add(grid[xCheck, yCheck]);
+        //    }
+        //}
+
+
+        //// top check
+        //xCheck = m_Node.gridPosX;
+        //yCheck = m_Node.gridPosY +1;
+        //if (xCheck >= 0 && xCheck < gridSizeX)
+        //{
+        //    if (yCheck >= 0 && yCheck < gridSizeY)
+        //    {
+        //        NeighbouringNodes.Add(grid[xCheck, yCheck]);
+        //    }
+        //}
+
+        //// Bottom check
+        //xCheck = m_Node.gridPosX;
+        //yCheck = m_Node.gridPosY -1;
+        //if (xCheck >= 0 && xCheck < gridSizeX)
+        //{
+        //    if (yCheck >= 0 && yCheck < gridSizeY)
+        //    {
+        //        NeighbouringNodes.Add(grid[xCheck, yCheck]);
+        //    }
+        //}
         return NeighbouringNodes;
     }
            
@@ -97,16 +143,17 @@ public class Grid : MonoBehaviour
             {
                 if (node.IsObstruction)
                 {
-                    Gizmos.color = Color.cyan;//set colour
+                    Gizmos.color = Color.white;//set colour
                 }
                 else
                 {
-                    Gizmos.color = Color.white;//set colour
+                    Gizmos.color = Color.yellow;//set colour
                 }
 
                 if(FinalPath != null)
                 {
                     Gizmos.color = Color.red; // set colour
+                    
                 }
 
                 Gizmos.DrawCube(node.Position, Vector3.one * (nodeDiameter - Distance)); // drawing the node at node position.
