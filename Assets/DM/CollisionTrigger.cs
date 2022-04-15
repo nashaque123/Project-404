@@ -25,8 +25,9 @@ public class CollisionTrigger : MonoBehaviour
     {
         if (!other.gameObject.Equals(parentObject))
         {
+            Vector3 raycastDirection = (other.gameObject.transform.position - gameObject.transform.position).normalized;
             //check if other agent is visible using ray cast
-            if (Physics.Raycast(gameObject.transform.position, other.gameObject.transform.position, out RaycastHit raycast))
+            if (Physics.Raycast(gameObject.transform.position, raycastDirection, out RaycastHit raycast))
             {
                 //if other object is visible then check what it is
                 if (raycast.collider != null)
