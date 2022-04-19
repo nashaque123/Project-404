@@ -31,6 +31,10 @@ public class AgentController : MonoBehaviour
                 thisAnimal.Stamina += 0.1f;
             }
         }
+        else if (target.GetComponent<MeshRenderer>().enabled == false)
+        {
+            target = null;
+        }
     }
 
     void Explore()
@@ -61,13 +65,14 @@ public class AgentController : MonoBehaviour
                 //run away
                 break;
             case StateMachine.eHide:
-                //stay in hiding place
+                //go in hiding place
+                EnterHidingSpot();
                 break;
         }
     }
 
     //check if other agent is within attacking range
-    public bool EnemyAgentWithinRange()
+    public bool PreyAgentWithinRange()
     {
         //check if any objects are blocking path to agent
         if (Physics.Raycast(transform.position, target.transform.position, out RaycastHit raycast))
@@ -84,6 +89,13 @@ public class AgentController : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void EnterHidingSpot()
+    {
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        thisAnimal.Stamina += 0.15f;
+        thisAnimal.Health += 0.15f;
     }
 
     public GameObject Target

@@ -22,8 +22,6 @@ public class PreyRootNode : MonoBehaviour
     private INode restNode;
     private INode exploreNode = new Explore();
 
-    int counter = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +52,10 @@ public class PreyRootNode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (counter == 100)
+        if (Time.frameCount % 2 == 0)
         {
             bool result = rootSelector.Run();
-            counter = 0;
-//            Debug.Log("test " + result + Time.frameCount);
+           // Debug.Log("test " + result + Time.frameCount);
         }
-        counter++;
     }
 }

@@ -33,19 +33,23 @@ public class CollisionTrigger : MonoBehaviour
                 if (raycast.collider != null)
                 {
                     Transform collisionObject = GameObjectExtension.GetParentFromCollision(raycast.collider);
-                    Debug.Log("raycast collider: " + collisionObject);
                     Debug.DrawLine(transform.position, collisionObject.position, Color.black, 5f, false);
 
                     //if agent then add to list
                     if (collisionObject.gameObject.GetComponent<Animal>() != null)
                     {
                         thisAnimal.VisibleAgentsList.Add(collisionObject.gameObject.GetComponent<Animal>());
-                        gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
-                        Debug.Log(collisionObject + " visible");
+                        if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                        {
+                            gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                        }
                     }
                     else if (collisionObject.gameObject.layer == 7) //check if object has hiding spot layer
                     {
-                        Debug.Log("visible hiding spot " + collisionObject);
+                        if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                        {
+                            gameObject.GetComponentInParent<DecisionMaking>().HidingSpotAvailable(collisionObject.gameObject);
+                        }
                     }
                 }
             }
@@ -63,7 +67,10 @@ public class CollisionTrigger : MonoBehaviour
             if (thisAnimal.VisibleAgentsList.Contains(agent.gameObject.GetComponent<Animal>()))
             {
                 thisAnimal.VisibleAgentsList.Remove(agent.gameObject.GetComponent<Animal>());
-                //gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                {
+                    gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                }
             }
         }
     }

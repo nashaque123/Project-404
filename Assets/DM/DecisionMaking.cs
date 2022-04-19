@@ -28,6 +28,12 @@ public class DecisionMaking : MonoBehaviour
     void Update()
     {
         CheckStamina();
+        if (state == StateMachine.eHide && !IsPredatorWithinRange())
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
+            state = StateMachine.eExplore;
+            agentController.UpdateAction(state);
+        }
     }
 
     //loop through list of visible agents and checks if they are in either list
@@ -40,7 +46,8 @@ public class DecisionMaking : MonoBehaviour
             {
                 state = StateMachine.eRun;
 
-                if (Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
+                if (agentController.Target == null ||
+                    Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
                 {
                     agentController.Target = otherAgent.gameObject;
                 }
@@ -49,13 +56,15 @@ public class DecisionMaking : MonoBehaviour
             {
                 state = StateMachine.eAttack;
 
-                if (Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
+                if (agentController.Target == null ||
+                    Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
                 {
                     agentController.Target = otherAgent.gameObject;
                 }
             }
         }
 
+        Debug.Log("state " + state);
         agentController.UpdateAction(state);
     }
 
@@ -72,5 +81,31 @@ public class DecisionMaking : MonoBehaviour
         }
 
         agentController.UpdateAction(state);
+    }
+
+    public void HidingSpotAvailable(GameObject hidingSpot)
+    {
+        //if being attacked, set hiding spot as target
+        if (state == StateMachine.eRun)
+        {
+            agentController.Target = hidingSpot;
+            state = StateMachine.eHide;
+            agentController.UpdateAction(state);
+        }
+    }
+
+    private bool IsPredatorWithinRange()
+    {
+        Collider[] objectsWithinRange = Physics.OverlapSphere(thisAnimal.transform.position, 10f);
+        foreach (Collider collider in objectsWithinRange)
+        {
+            //check if collider is prey
+            if (collider.gameObject.GetComponent<Animal>() != null && thisAnimal.PredatorList.Contains(collider.gameObject.GetComponent<Animal>()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
