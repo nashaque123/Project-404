@@ -13,6 +13,7 @@ public class Grid : MonoBehaviour
 
     Node[,] worldGrid;
 
+
     void Start()
     {
         nodeDiameter = nodeRadius * 2;

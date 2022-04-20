@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
+
     Grid grid;
 
     public Transform start, target;
