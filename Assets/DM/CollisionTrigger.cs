@@ -46,8 +46,7 @@ public class CollisionTrigger : MonoBehaviour
                     }
                     else if (collisionObject.gameObject.layer == 7) //check if object has hiding spot layer
                     {
-                        gameObject.GetComponent<Animal>().VisibleHidingSpotList.Add(collisionObject.gameObject);
-
+                        thisAnimal.VisibleHidingSpotList.Add(collisionObject.gameObject);
                         if (gameObject.GetComponentInParent<DecisionMaking>() != null)
                         {
                             gameObject.GetComponentInParent<DecisionMaking>().HidingSpotAvailable(collisionObject.gameObject);

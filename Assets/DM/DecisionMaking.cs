@@ -64,7 +64,6 @@ public class DecisionMaking : MonoBehaviour
             }
         }
 
-        Debug.Log("state " + state);
         agentController.UpdateAction(state);
     }
 
