@@ -6,7 +6,7 @@ public class Animal : MonoBehaviour
 {
     private float stamina = 100;
     private float health = 100;
-    private List<Animal> visibleAgentsList;
+    private List<Animal> visibleAgentsList = new List<Animal>();
     [SerializeField]
     private float maxStepSize;
     [HideInInspector]
@@ -15,6 +15,7 @@ public class Animal : MonoBehaviour
     private float staminaCost;
     [SerializeField]
     private float attackRange;
+    private List<GameObject> visibleHidingSpotList = new List<GameObject>();
 
     //string to manage speed caps based on stamina levels
     private string speedBuffer = "max";
@@ -27,13 +28,6 @@ public class Animal : MonoBehaviour
 
     public StatusBarUI healthBarUI;
     public StatusBarUI staminaBarUI;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        visibleAgentsList = new List<Animal>();
-    }
 
     private void SetStepSizeOnStaminaLevel()
     {
@@ -141,6 +135,14 @@ public class Animal : MonoBehaviour
         get
         {
             return preyList;
+        }
+    }
+
+    public List<GameObject> VisibleHidingSpotList
+    {
+        get
+        {
+            return visibleHidingSpotList;
         }
     }
 }

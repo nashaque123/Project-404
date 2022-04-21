@@ -62,6 +62,7 @@ public class AgentController : MonoBehaviour
                 //chase prey
                 break;
             case StateMachine.eRun:
+                Run();
                 //run away
                 break;
             case StateMachine.eHide:
@@ -91,11 +92,24 @@ public class AgentController : MonoBehaviour
         return false;
     }
 
+    private void Run()
+    {
+        if (CheckForHidingSpot())
+        {
+            EnterHidingSpot();
+        }
+    }
+
     private void EnterHidingSpot()
     {
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         thisAnimal.Stamina += 0.15f;
         thisAnimal.Health += 0.15f;
+    }
+
+    private bool CheckForHidingSpot()
+    {
+        return thisAnimal.VisibleHidingSpotList.Count > 0;
     }
 
     public GameObject Target

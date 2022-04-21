@@ -46,6 +46,8 @@ public class CollisionTrigger : MonoBehaviour
                     }
                     else if (collisionObject.gameObject.layer == 7) //check if object has hiding spot layer
                     {
+                        gameObject.GetComponent<Animal>().VisibleHidingSpotList.Add(collisionObject.gameObject);
+
                         if (gameObject.GetComponentInParent<DecisionMaking>() != null)
                         {
                             gameObject.GetComponentInParent<DecisionMaking>().HidingSpotAvailable(collisionObject.gameObject);
@@ -64,12 +66,22 @@ public class CollisionTrigger : MonoBehaviour
             Transform agent = GameObjectExtension.GetParentFromCollision(other);
 
             //if other agent is in list then remove
-            if (thisAnimal.VisibleAgentsList.Contains(agent.gameObject.GetComponent<Animal>()))
+            if (agent.GetComponent<Animal>() != null)
             {
-                thisAnimal.VisibleAgentsList.Remove(agent.gameObject.GetComponent<Animal>());
-                if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                if (thisAnimal.VisibleAgentsList.Contains(agent.gameObject.GetComponent<Animal>()))
                 {
-                    gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                    thisAnimal.VisibleAgentsList.Remove(agent.gameObject.GetComponent<Animal>());
+                    if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                    {
+                        gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                    }
+                }
+            }
+            else if (agent.gameObject.layer == 7)
+            {
+                if (thisAnimal.VisibleHidingSpotList.Contains(agent.gameObject))
+                {
+                    thisAnimal.VisibleHidingSpotList.Remove(agent.gameObject);
                 }
             }
         }
