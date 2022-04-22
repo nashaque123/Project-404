@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(rb.position + (thisAnimal.StepSize * Time.deltaTime * moveInput.normalized));
             thisAnimal.Stamina -= thisAnimal.StaminaCost;
         }
+        else
+        {
+            thisAnimal.Stamina += 0.1f;
+        }
 
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 0"))
         {

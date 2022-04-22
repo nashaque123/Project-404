@@ -29,6 +29,11 @@ public class Animal : MonoBehaviour
     public StatusBarUI healthBarUI;
     public StatusBarUI staminaBarUI;
 
+    private void Start()
+    {
+        StepSize = maxStepSize;
+    }
+
     private void SetStepSizeOnStaminaLevel()
     {
         if (stamina > 60 && !speedBuffer.Equals("max"))
