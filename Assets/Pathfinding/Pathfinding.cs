@@ -95,6 +95,7 @@ public class Pathfinding : MonoBehaviour
             currentNode = currentNode.parent;
         }
         path.Reverse();
+        grid.path = path;
         return path;
     }
     int GetDistance(Node nodeA, Node nodeB)

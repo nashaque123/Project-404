@@ -5,33 +5,43 @@ using UnityEngine;
 public class AIMovement : MonoBehaviour
 {
     private AgentController agentController;
+    private Animal thisAnimal;
+    private Rigidbody thisRb;
     private Pathfinding pathfindingManager;
     private List<Node> path;
-    private int currentNodeIndex = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         agentController = gameObject.GetComponent<AgentController>();
+        thisAnimal = gameObject.GetComponent<Animal>();
+        thisRb = gameObject.GetComponent<Rigidbody>();
         pathfindingManager = GameObject.Find("A*").GetComponent<Pathfinding>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        path = pathfindingManager.FindPath(transform.position, agentController.Target.transform.position);
+        if (agentController.Target != null)
+        {
+            //update path in case target is moving
+            if (Time.frameCount % 10 == 0)
+            {
+                path = pathfindingManager.FindPath(transform.position, agentController.Target.transform.position);
+            }
+
+            //check if path has nodes to move to
+            if (path.Count > 1)
+            {
+                MoveTowardsTarget();
+            }
+        }
     }
 
-    public List<Node> Path
+    private void MoveTowardsTarget()
     {
-        get
-        {
-            return path;
-        }
-
-        set
-        {
-            path = value;
-        }
+        Vector3 direction = (path[1].worldPos - transform.position).normalized;
+        thisRb.MovePosition(thisRb.position + (thisAnimal.StepSize * Time.deltaTime * direction));
+        thisAnimal.Stamina -= thisAnimal.StaminaCost;
     }
 }
