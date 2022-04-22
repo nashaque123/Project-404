@@ -24,7 +24,7 @@ public class Pathfinding : MonoBehaviour
         FindPath(start.position, target.position);
 
     }
-    void FindPath(Vector3 startPos, Vector3 targetPos)
+    public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
     {
         //Stopwatch sw = new Stopwatch();
         //sw.Start();
@@ -53,8 +53,7 @@ public class Pathfinding : MonoBehaviour
             {
                 //sw.Stop();
                 //print("found Path in: " + sw.ElapsedMilliseconds + " ms");
-                BackTrackPath(startingNode, targetNode);
-                return;
+                return BackTrackPath(startingNode, targetNode);
             }
 
             foreach (Node neighbour in grid.GetNeighbours(CurrentNode))
@@ -81,9 +80,11 @@ public class Pathfinding : MonoBehaviour
             }
             
         }
+
+        return new List<Node>();
     }
 
-    void BackTrackPath(Node startNode, Node endNode)
+    List<Node> BackTrackPath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
         Node currentNode = endNode;
@@ -94,8 +95,7 @@ public class Pathfinding : MonoBehaviour
             currentNode = currentNode.parent;
         }
         path.Reverse();
-
-        grid.path = path;
+        return path;
     }
     int GetDistance(Node nodeA, Node nodeB)
     {
