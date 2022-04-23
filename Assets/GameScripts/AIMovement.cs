@@ -25,7 +25,7 @@ public class AIMovement : MonoBehaviour
         if (agentController.Target != null)
         {
             //update path in case target is moving
-            if (Time.frameCount % 10 == 0)
+            //if (Time.frameCount % 10 == 0)
             {
                 path = pathfindingManager.FindPath(transform.position, agentController.Target.transform.position);
             }

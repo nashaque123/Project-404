@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Animal thisAnimal;
     private Vector3 moveInput;
+    public float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,12 @@ public class PlayerController : MonoBehaviour
                     StartCoroutine(thisAnimal.Attack(enemy));
                 }
             }
+        }
+
+        if (moveInput != Vector3.zero) //(Sara edit)
+        {
+            Quaternion toRoatation = Quaternion.LookRotation(moveInput, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRoatation, rotationSpeed * Time.deltaTime);
         }
     }
 
