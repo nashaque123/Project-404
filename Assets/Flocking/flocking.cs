@@ -36,13 +36,13 @@ public class flocking : MonoBehaviour
         //for each agent
         foreach (GameObject neighbour in neighbours)
         {
-            alignment += neighbour.GetComponent<flocking>().velocity; 
+            alignment += neighbour.GetComponent<flocking>().velocity;
         }
 
         //divide by number of agents
         if (neighbours.Count > 0)
         {
-            alignment = alignment/neighbours.Count;
+            alignment = alignment / neighbours.Count;
         }
 
 
@@ -52,6 +52,8 @@ public class flocking : MonoBehaviour
         foreach (GameObject neighbour in neighbours)
         {
             cohesion += neighbour.transform.position;
+            //cohesion += gameObject.transform.position - neighbour.transform.position;
+
         }
 
         if (neighbours.Count > 0)
@@ -81,7 +83,7 @@ public class flocking : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-       Debug.Log(collision.gameObject.GetType());
+        Debug.Log(collision.gameObject.GetType());
 
         if (collision.gameObject.CompareTag("agent"))
         {
