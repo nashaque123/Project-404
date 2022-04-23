@@ -6,7 +6,7 @@ public class CamController : MonoBehaviour
 {
     public Transform playerTransform;
 
-    Vector3 offset;
+    public Vector3 offset;
 
     [Range(0.01f, 1.0f)]
     public float smoothFactor = 0.5f;
