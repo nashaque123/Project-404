@@ -6,6 +6,7 @@ public class AgentController : MonoBehaviour
 {
     private Rigidbody rb;
     private Animal thisAnimal;
+    [SerializeField]
     private GameObject target;
     private bool isExploring;
 

@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Animal thisAnimal;
     private Vector3 moveInput;
+    public float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 0"))
         {
             //attack
+        }
+
+        if (moveInput != Vector3.zero)
+        {
+            Quaternion toRoatation = Quaternion.LookRotation(moveInput, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRoatation, rotationSpeed * Time.deltaTime);
         }
     }
 }
