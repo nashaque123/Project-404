@@ -5,6 +5,7 @@ using UnityEngine;
 public class PredatorDecisionTree : MonoBehaviour
 {
     private Animal thisAnimal;
+    private AgentController thisAgent;
     private readonly float staminaThreshold = 20f;
     private readonly float growlRange = 10f;
     private readonly float staminaDrain = 2f;
@@ -14,6 +15,7 @@ public class PredatorDecisionTree : MonoBehaviour
     void Start()
     {
         thisAnimal = gameObject.GetComponent<Animal>();
+        thisAgent = gameObject.GetComponent<AgentController>();
     }
 
     // Update is called once per frame
@@ -35,6 +37,7 @@ public class PredatorDecisionTree : MonoBehaviour
                 else
                 {
                     //chase
+                    thisAgent.Target = thisAnimal.VisibleAgentsList[0].gameObject;
                 }
             }
         }
@@ -48,6 +51,7 @@ public class PredatorDecisionTree : MonoBehaviour
             else
             {
                 //explore
+                thisAgent.Target = null;
             }
         }
     }
