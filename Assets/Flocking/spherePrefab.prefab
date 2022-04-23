@@ -121,7 +121,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5876225382139779010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 165a0d76a1d9dc64da97eea1be36ce8a, type: 3}
   m_Name: 
@@ -131,6 +131,7 @@ MonoBehaviour:
   agentNumber: 5
   neighbours: []
   velocity: {x: 0, y: 0, z: 0}
+  velocity2: {x: 0, y: 0, z: 0}
   alignmentFactor: 0.1
   cohesionFactor: 0.1
   seperationFactor: 0.1
