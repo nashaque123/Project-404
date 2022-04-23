@@ -334,11 +334,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab76221c65cc424997a6ca3be887f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleAgentsList: []
   maxStepSize: 5
   StepSize: 0
-  staminaCost: 0
+  staminaCost: 0.1
   attackRange: 10
+  attackRechargeTime: 1
+  AttackPower: 40
   predatorList: []
   preyList:
   - {fileID: 845119966}
@@ -356,7 +357,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1504,11 +1505,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab76221c65cc424997a6ca3be887f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleAgentsList: []
   maxStepSize: 5
   StepSize: 0
-  staminaCost: 0
+  staminaCost: 0.1
   attackRange: 10
+  attackRechargeTime: 0.2
+  AttackPower: 5
   predatorList: []
   preyList:
   - {fileID: 845119966}
@@ -3670,7 +3672,7 @@ GameObject:
   - component: {fileID: 845119965}
   - component: {fileID: 845119966}
   - component: {fileID: 845119964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Anteater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3795,13 +3797,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab76221c65cc424997a6ca3be887f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleAgentsList: []
   maxStepSize: 20
   StepSize: 0
   staminaCost: 0.05
-  attackRange: 0
+  attackRange: 10
+  attackRechargeTime: 0.3
+  AttackPower: 20
   predatorList:
   - {fileID: 37314781}
+  - {fileID: 152515999}
   preyList: []
   healthBarUI: {fileID: 79849588}
   staminaBarUI: {fileID: 2049271568}

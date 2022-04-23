@@ -33,7 +33,6 @@ public class CollisionTrigger : MonoBehaviour
                 if (raycast.collider != null)
                 {
                     Transform collisionObject = GameObjectExtension.GetParentFromCollision(raycast.collider);
-                    Debug.DrawLine(transform.position, collisionObject.position, Color.black, 5f, false);
 
                     //if agent then add to list
                     if (collisionObject.gameObject.GetComponent<Animal>() != null)

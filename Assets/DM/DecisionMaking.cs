@@ -8,7 +8,8 @@ public enum StateMachine
     eRest,
     eAttack,
     eRun,
-    eHide
+    eHide,
+    eDead
 }
 
 public class DecisionMaking : MonoBehaviour
@@ -106,5 +107,19 @@ public class DecisionMaking : MonoBehaviour
         }
 
         return false;
+    }
+
+    public StateMachine State
+    {
+        get
+        {
+            return state;
+        }
+
+        set
+        {
+            state = value;
+            agentController.UpdateAction(state);
+        }
     }
 }

@@ -32,6 +32,31 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 0"))
         {
             //attack
+            if (thisAnimal.CanAttack)
+            {
+                List<Animal> enemiesWithinRange = GetAllEnemiesWithinRange();
+                foreach (Animal enemy in enemiesWithinRange)
+                {
+                    StartCoroutine(thisAnimal.Attack(enemy));
+                }
+            }
         }
+    }
+
+    private List<Animal> GetAllEnemiesWithinRange()
+    {
+        List<Animal> enemiesWithinRange = new List<Animal>();
+        Collider[] objectsWithinRange = Physics.OverlapSphere(thisAnimal.transform.position, thisAnimal.AttackRange);
+        foreach (Collider collider in objectsWithinRange)
+        {
+            //check if collider is prey
+            if (collider.gameObject.GetComponent<Animal>() != null && 
+                (thisAnimal.PredatorList.Contains(collider.gameObject.GetComponent<Animal>()) || thisAnimal.PreyList.Contains(collider.gameObject.GetComponent<Animal>())))
+            {
+                enemiesWithinRange.Add(collider.gameObject.GetComponent<Animal>());
+            }
+        }
+
+        return enemiesWithinRange;
     }
 }

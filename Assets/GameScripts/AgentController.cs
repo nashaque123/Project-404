@@ -60,6 +60,7 @@ public class AgentController : MonoBehaviour
                 break;
             case StateMachine.eAttack:
                 //chase prey
+                Attack();
                 break;
             case StateMachine.eRun:
                 Run();
@@ -68,6 +69,9 @@ public class AgentController : MonoBehaviour
             case StateMachine.eHide:
                 //go in hiding place
                 EnterHidingSpot();
+                break;
+            case StateMachine.eDead:
+                Destroy(gameObject);
                 break;
         }
     }
@@ -90,6 +94,14 @@ public class AgentController : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void Attack()
+    {
+        if (PreyAgentWithinRange() && thisAnimal.CanAttack)
+        {
+            StartCoroutine(thisAnimal.Attack(target.GetComponent<Animal>()));
+        }
     }
 
     private void Run()

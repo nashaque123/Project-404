@@ -23,9 +23,17 @@ public class PredatorDecisionTree : MonoBehaviour
     {
         if (thisAnimal.VisibleAgentsList.Count > 0)
         {
-            if (Vector3.Distance(transform.position, thisAnimal.VisibleAgentsList[0].transform.position) < thisAnimal.AttackRange)
+            if (Vector3.Distance(transform.position, thisAnimal.VisibleAgentsList[0].transform.position) < thisAnimal.AttackRange && thisAnimal.PreyList.Contains(thisAnimal.VisibleAgentsList[0]))
             {
                 //attack
+                if (thisAnimal.CanAttack)
+                {
+                    StartCoroutine(thisAnimal.Attack(thisAnimal.VisibleAgentsList[0]));
+                    if (thisAnimal.VisibleAgentsList[0].Health == 0)
+                    {
+                        thisAgent.Target = null;
+                    }
+                }
             }
             else
             {

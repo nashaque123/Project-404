@@ -16,6 +16,9 @@ public class Animal : MonoBehaviour
     [SerializeField]
     private float attackRange;
     private List<GameObject> visibleHidingSpotList = new List<GameObject>();
+    private bool canAttack = true;
+    public float attackRechargeTime;
+    public float AttackPower;
 
     //string to manage speed caps based on stamina levels
     private string speedBuffer = "max";
@@ -51,6 +54,14 @@ public class Animal : MonoBehaviour
             StepSize = maxStepSize * 0.3f;
             speedBuffer = "20";
         }
+    }
+
+    public IEnumerator Attack(Animal target)
+    {
+        canAttack = false;
+        target.Health -= AttackPower;
+        yield return new WaitForSeconds(0.5f);
+        canAttack = true;
     }
 
     public float Stamina
@@ -93,6 +104,12 @@ public class Animal : MonoBehaviour
             {
                 health = 0;
                 //dead
+
+                if (gameObject.GetComponent<DecisionMaking>() != null && gameObject.GetComponent<AgentController>() != null)
+                {
+                    gameObject.GetComponent<DecisionMaking>().State = StateMachine.eDead;
+                }
+                Destroy(gameObject);
             }
             else if (health > 100)
             {
@@ -148,6 +165,19 @@ public class Animal : MonoBehaviour
         get
         {
             return visibleHidingSpotList;
+        }
+    }
+
+    public bool CanAttack
+    {
+        get
+        {
+            return canAttack;
+        }
+
+        set
+        {
+            canAttack = value;
         }
     }
 }
