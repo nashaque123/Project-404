@@ -40,8 +40,8 @@ public class AIMovement : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
-        Vector3 direction = (path[1].worldPos - transform.position).normalized;
-        thisRb.MovePosition(thisRb.position + (thisAnimal.StepSize * Time.deltaTime * direction));
+        Vector3 directionToTarget = new Vector3(path[1].worldPos.x - transform.position.x, 0f, path[1].worldPos.z - transform.position.z).normalized;
+        thisRb.MovePosition(thisRb.position + (thisAnimal.StepSize * Time.deltaTime * directionToTarget));
         thisAnimal.Stamina -= thisAnimal.StaminaCost;
     }
 }
