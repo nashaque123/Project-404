@@ -33,7 +33,7 @@ public class Flocking2 : MonoBehaviour
         for (int i = 0; i < unitsvar.Length; i += 1)
         {
             Debug.Log(unitsvar[i]);
-            //unitsvar[i].move(); 
+            unitsvar[i].move(); 
         }
     }
 

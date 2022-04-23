@@ -245,12 +245,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b437efab89fa4642adcee6a2088b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flockingPrefab: {fileID: 0}
+  flockingPrefab: {fileID: 3582341851289598755, guid: 9f6f6e4848bb20142b99b4394d383a20, type: 3}
   agentsNum: 20
   boundaries: {x: 5, y: 0, z: 5}
-  CDist: 0
-  maxSpeed: 0
-  minSpeed: 0
+  CDist: 10
+  maxSpeed: 1
+  minSpeed: 5
 --- !u!4 &1026462040
 Transform:
   m_ObjectHideFlags: 0

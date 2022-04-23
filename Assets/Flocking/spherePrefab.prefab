@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6189728494472732436}
   - component: {fileID: 4577368903472739435}
   - component: {fileID: 9043343148216001239}
+  - component: {fileID: 3582341851289598755}
   m_Layer: 0
   m_Name: spherePrefab
   m_TagString: agent
@@ -135,3 +136,20 @@ MonoBehaviour:
   alignmentFactor: 0.1
   cohesionFactor: 0.1
   seperationFactor: 0.1
+--- !u!114 &3582341851289598755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876225382139779010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c142ba1f8d986e541a345614a79ba091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cneighbours: []
+  FOV: 270
+  thisVelocity: {x: 0, y: 0, z: 0}
+  smoothDamp: 1
+  speed: 0

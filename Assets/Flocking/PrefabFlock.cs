@@ -57,17 +57,18 @@ public class PrefabFlock : MonoBehaviour
                 FOVneighbours += 1;
                 CVect += Cneighbours[i].thisTransform.position;
             }
-
-            if (FOVneighbours == 0)
-            {
-                return CVect;
-                CVect /= FOVneighbours;
-                CVect -= thisTransform.position;
-                CVect = Vector3.Normalize(CVect);
-                return CVect;
-            }
         }
+
+        if (FOVneighbours == 0)
+        {
+            return CVect;
+        }
+
+        CVect /= FOVneighbours;
+        CVect -= thisTransform.position;
+        CVect = Vector3.Normalize(CVect);
         return CVect;
+        //return CVect;
     }
 
     public bool FOVSeen(Vector3 position)
