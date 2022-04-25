@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 1910738627283972406}
   - component: {fileID: 9115501869843055926}
   - component: {fileID: 5742617138804139366}
+  - component: {fileID: -782867956776055789}
   m_Layer: 6
   m_Name: Anteater
   m_TagString: Untagged
@@ -676,6 +677,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9784ba488e849d4987e9a0c41666246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-782867956776055789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910738627283972407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65acee66d5c03d5439884b73d1217834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1910738627503208441

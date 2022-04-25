@@ -23,15 +23,23 @@ public class PredatorDecisionTree : MonoBehaviour
     {
         if (thisAnimal.VisibleAgentsList.Count > 0)
         {
-            if (Vector3.Distance(transform.position, thisAnimal.VisibleAgentsList[0].transform.position) < thisAnimal.AttackRange && thisAnimal.PreyList.Contains(thisAnimal.VisibleAgentsList[0]))
+            Animal target = GetTarget();
+            if (target.Equals(null))
+            {
+                Idle();
+                return;
+            }
+
+            if (Vector3.Distance(transform.position, target.transform.position) < thisAnimal.AttackRange)
             {
                 //attack
                 if (thisAnimal.CanAttack)
                 {
-                    StartCoroutine(thisAnimal.Attack(thisAnimal.VisibleAgentsList[0]));
-                    if (thisAnimal.VisibleAgentsList[0].Health == 0)
+                    StartCoroutine(thisAnimal.Attack(target));
+                    if (target.Health == 0)
                     {
                         thisAgent.Target = null;
+                        thisAnimal.VisibleAgentsList.Remove(target);
                     }
                 }
             }
@@ -45,22 +53,13 @@ public class PredatorDecisionTree : MonoBehaviour
                 else
                 {
                     //chase
-                    thisAgent.Target = thisAnimal.VisibleAgentsList[0].gameObject;
+                    thisAgent.Target = target.gameObject;
                 }
             }
         }
         else
         {
-            if (thisAnimal.Stamina <= staminaThreshold)
-            {
-                //rest
-                Rest();
-            }
-            else
-            {
-                //explore
-                thisAgent.Target = null;
-            }
+            Idle();
         }
     }
 
@@ -77,8 +76,37 @@ public class PredatorDecisionTree : MonoBehaviour
         }
     }
 
+    private void Idle()
+    {
+        thisAgent.Target = null;
+
+        if (thisAnimal.Stamina <= staminaThreshold)
+        {
+            //rest
+            Rest();
+        }
+        else
+        {
+            //explore
+        }
+    }
+
     private void Rest()
     {
         thisAnimal.Stamina += restRate;
+    }
+
+    private Animal GetTarget()
+    {
+        foreach (Animal animal in thisAnimal.VisibleAgentsList)
+        {
+            Animal prefab = animal.GetComponent<ParentPrefab>().Source.GetComponent<Animal>();
+            if (thisAnimal.PreyList.Contains(prefab))
+            {
+                return animal;
+            }
+        }
+
+        return null;
     }
 }

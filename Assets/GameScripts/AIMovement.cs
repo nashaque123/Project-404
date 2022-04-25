@@ -26,9 +26,7 @@ public class AIMovement : MonoBehaviour
         {
             //update path in case target is moving
             //if (Time.frameCount % 10 == 0)
-            {
-                path = pathfindingManager.FindPath(transform.position, agentController.Target.transform.position);
-            }
+            path = pathfindingManager.FindPath(transform.position, agentController.Target.transform.position);
 
             //check if path has nodes to move to
             if (path.Count > 1)

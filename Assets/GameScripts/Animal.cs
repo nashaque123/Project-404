@@ -100,11 +100,11 @@ public class Animal : MonoBehaviour
         {
             health = value;
 
-            if (health < 0)
+            if (health <= 0)
             {
                 health = 0;
+                
                 //dead
-
                 if (gameObject.GetComponent<DecisionMaking>() != null && gameObject.GetComponent<AgentController>() != null)
                 {
                     gameObject.GetComponent<DecisionMaking>().State = StateMachine.eDead;

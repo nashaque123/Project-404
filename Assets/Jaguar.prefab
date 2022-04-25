@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 3658587502082050000}
   - component: {fileID: 3658587502082050031}
   - component: {fileID: 3658587502082050030}
+  - component: {fileID: -4912300764432108964}
   m_Layer: 6
   m_Name: Jaguar
   m_TagString: Untagged
@@ -703,10 +704,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab76221c65cc424997a6ca3be887f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStepSize: 5
+  maxStepSize: 20
   StepSize: 0
-  staminaCost: 0.1
-  attackRange: 10
+  staminaCost: 0.05
+  attackRange: 2.5
   attackRechargeTime: 0.5
   AttackPower: 10
   predatorList: []
@@ -727,7 +728,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -765,6 +766,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f75132d093f5584ea6e2d76bfe4bebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4912300764432108964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3658587502082050007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65acee66d5c03d5439884b73d1217834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3658587502162216658

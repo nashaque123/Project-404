@@ -8,7 +8,7 @@ public class Pathfinding : MonoBehaviour
 
     Grid grid;
 
-    public Transform start, target;
+    //public Transform start, target;
 
     void Awake()
     {
@@ -21,7 +21,7 @@ public class Pathfinding : MonoBehaviour
         //{
         //    FindPath(start.position, target.position);
         //}
-        FindPath(start.position, target.position);
+        //FindPath(start.position, target.position);
 
     }
     public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
