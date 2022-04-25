@@ -80,6 +80,14 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
 
         Vector3 velocity = (transform.forward * moveInput.y + transform.right * moveInput.x) * moveSpeed;
+        if (moveInput.magnitude > 0)
+        {
+            thisAnimal.Stamina -= thisAnimal.StaminaCost;
+        }
+        else
+        {
+            thisAnimal.Stamina += 0.1f;
+        }
         controller.Move(velocity * Time.deltaTime);
     }
 
