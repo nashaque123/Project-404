@@ -19,7 +19,7 @@ public class Growl : INode
         foreach (Collider collider in objectsWithinRange)
         {
             //check if collider is prey
-            if (collider.gameObject.GetComponent<Animal>() != null && thisAnimal.PreyList.Contains(collider.gameObject.GetComponent<Animal>()))
+            if (collider.gameObject.GetComponent<Animal>() != null && thisAnimal.PreyList.Contains(collider.gameObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>()))
             {
                 collider.gameObject.GetComponent<Animal>().Stamina -= staminaDrain;
             }

@@ -12,7 +12,7 @@ public class PreyRootNode : MonoBehaviour
     private Sequence attackedSequence = new Sequence();
     private INode isBeingAttackedNode;
     private Selector runAwaySelector = new Selector();
-    private INode hideNode = new Hide();
+    private INode hideNode;
     private Sequence trapSequence = new Sequence();
     private INode isAbleToSetTrapNode;
     private INode setTrapNode;
@@ -29,7 +29,8 @@ public class PreyRootNode : MonoBehaviour
         thisAnimal = gameObject.GetComponent<Animal>();
         thisPreyWithTraps = gameObject.GetComponent<PreyWithTraps>();
 
-        isBeingAttackedNode = new BeingAttacked(thisAgent);
+        isBeingAttackedNode = new BeingAttacked(thisAgent, thisAnimal);
+        hideNode = new Hide(thisAnimal);
         isAbleToSetTrapNode = new AbleToSetTrap(thisPreyWithTraps);
         setTrapNode = new SetTrap(thisPreyWithTraps);
         isHealthOrStaminaLowNode = new HealthOrStaminaLow(thisAnimal);

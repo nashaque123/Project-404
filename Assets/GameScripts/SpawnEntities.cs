@@ -7,6 +7,7 @@ public class SpawnEntities : MonoBehaviour
     public GameObject PlayerPrefab;
     public GameObject JaguarPrefab;
     public GameObject AnteaterPrefab;
+    public GameObject AntPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,12 @@ public class SpawnEntities : MonoBehaviour
 
         GameObject anteater = Instantiate(AnteaterPrefab, new Vector3(20f, 1f, 50f), Quaternion.identity);
         anteater.GetComponent<ParentPrefab>().Source = AnteaterPrefab;
+
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject ant = Instantiate(AntPrefab, new Vector3(20f, 1f, -25f), Quaternion.identity);
+            ant.GetComponent<ParentPrefab>().Source = AntPrefab;
+        }
     }
 
     // Update is called once per frame

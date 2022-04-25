@@ -39,41 +39,10 @@ public class AgentController : MonoBehaviour
 
     void Explore()
     {
-        Vector3 moveInput = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+        //replace with flocking
+        /*Vector3 moveInput = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
         rb.MovePosition(rb.position + (thisAnimal.StepSize * Time.deltaTime * moveInput.normalized));
-        thisAnimal.Stamina -= thisAnimal.StaminaCost;
-    }
-
-    public void UpdateAction(StateMachine state)
-    {
-        switch (state)
-        {
-            case StateMachine.eExplore:
-                //walk about
-                target = null;
-                isExploring = true;
-                break;
-            case StateMachine.eRest:
-                //restore stamina
-                target = null;
-                isExploring = false;
-                break;
-            case StateMachine.eAttack:
-                //chase prey
-                Attack();
-                break;
-            case StateMachine.eRun:
-                Run();
-                //run away
-                break;
-            case StateMachine.eHide:
-                //go in hiding place
-                EnterHidingSpot();
-                break;
-            case StateMachine.eDead:
-                Destroy(gameObject);
-                break;
-        }
+        thisAnimal.Stamina -= thisAnimal.StaminaCost;*/
     }
 
     //check if other agent is within attacking range
@@ -96,7 +65,7 @@ public class AgentController : MonoBehaviour
         return false;
     }
 
-    private void Attack()
+    public void Attack()
     {
         if (PreyAgentWithinRange() && thisAnimal.CanAttack)
         {
@@ -104,7 +73,7 @@ public class AgentController : MonoBehaviour
         }
     }
 
-    private void Run()
+    public void Run()
     {
         if (CheckForHidingSpot())
         {
@@ -112,7 +81,7 @@ public class AgentController : MonoBehaviour
         }
     }
 
-    private void EnterHidingSpot()
+    public void EnterHidingSpot()
     {
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         thisAnimal.Stamina += 0.15f;
@@ -134,6 +103,19 @@ public class AgentController : MonoBehaviour
         set
         {
             target = value;
+        }
+    }
+
+    public bool IsExploring
+    {
+        get
+        {
+            return isExploring;
+        }
+
+        set
+        {
+            isExploring = value;
         }
     }
 }

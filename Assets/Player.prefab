@@ -897,7 +897,8 @@ MonoBehaviour:
   AttackPower: 20
   predatorList:
   - {fileID: 3658587502082050002, guid: f7d855c9aa5f18d4995446b5336312b5, type: 3}
-  preyList: []
+  preyList:
+  - {fileID: 202568231106045072, guid: a3471b38f4a869a499b33333cab9fe8d, type: 3}
   healthBarUI: {fileID: 3282601359039527751}
   staminaBarUI: {fileID: 6433073964067734860}
 --- !u!114 &6991457686373930894

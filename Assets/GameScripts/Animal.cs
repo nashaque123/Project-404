@@ -60,6 +60,8 @@ public class Animal : MonoBehaviour
     {
         canAttack = false;
         target.Health -= AttackPower;
+        ClearDestroyedVisibleAgents();
+        Debug.Log("target " + target.health);
         yield return new WaitForSeconds(0.5f);
         canAttack = true;
     }
@@ -89,6 +91,17 @@ public class Animal : MonoBehaviour
         }
     }
 
+    public void ClearDestroyedVisibleAgents()
+    {
+        for (int i = visibleAgentsList.Count - 1; i >= 0; i--)
+        {
+            if (visibleAgentsList[i] == null)
+            {
+                visibleAgentsList.RemoveAt(i);
+            }
+        }
+    }
+
     public float Health
     {
         get
@@ -105,9 +118,9 @@ public class Animal : MonoBehaviour
                 health = 0;
                 
                 //dead
-                if (gameObject.GetComponent<DecisionMaking>() != null && gameObject.GetComponent<AgentController>() != null)
+                if (gameObject.GetComponent<HierarchicalStateMachine>() != null && gameObject.GetComponent<AgentController>() != null)
                 {
-                    gameObject.GetComponent<DecisionMaking>().State = StateMachine.eDead;
+                    gameObject.GetComponent<HierarchicalStateMachine>().State = StateMachine.eDead;
                 }
                 Destroy(gameObject);
             }

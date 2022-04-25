@@ -38,17 +38,17 @@ public class CollisionTrigger : MonoBehaviour
                     if (collisionObject.gameObject.GetComponent<Animal>() != null)
                     {
                         thisAnimal.VisibleAgentsList.Add(collisionObject.gameObject.GetComponent<Animal>());
-                        if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                        if (gameObject.GetComponentInParent<HierarchicalStateMachine>() != null)
                         {
-                            gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                            gameObject.GetComponentInParent<HierarchicalStateMachine>().CheckListOfOtherAgents();
                         }
                     }
                     else if (collisionObject.gameObject.layer == 7) //check if object has hiding spot layer
                     {
                         thisAnimal.VisibleHidingSpotList.Add(collisionObject.gameObject);
-                        if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                        if (gameObject.GetComponentInParent<HierarchicalStateMachine>() != null)
                         {
-                            gameObject.GetComponentInParent<DecisionMaking>().HidingSpotAvailable(collisionObject.gameObject);
+                            gameObject.GetComponentInParent<HierarchicalStateMachine>().HidingSpotAvailable(collisionObject.gameObject);
                         }
                     }
                 }
@@ -69,9 +69,9 @@ public class CollisionTrigger : MonoBehaviour
                 if (thisAnimal.VisibleAgentsList.Contains(agent.gameObject.GetComponent<Animal>()))
                 {
                     thisAnimal.VisibleAgentsList.Remove(agent.gameObject.GetComponent<Animal>());
-                    if (gameObject.GetComponentInParent<DecisionMaking>() != null)
+                    if (gameObject.GetComponentInParent<HierarchicalStateMachine>() != null)
                     {
-                        gameObject.GetComponentInParent<DecisionMaking>().CheckListOfOtherAgents();
+                        gameObject.GetComponentInParent<HierarchicalStateMachine>().CheckListOfOtherAgents();
                     }
                 }
             }

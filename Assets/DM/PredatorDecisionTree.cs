@@ -69,7 +69,7 @@ public class PredatorDecisionTree : MonoBehaviour
         foreach (Collider collider in objectsWithinRange)
         {
             //check if collider is prey
-            if (collider.gameObject.GetComponent<Animal>() != null && thisAnimal.PreyList.Contains(collider.gameObject.GetComponent<Animal>()))
+            if (collider.gameObject.GetComponent<Animal>() != null && thisAnimal.PreyList.Contains(collider.gameObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>()))
             {
                 collider.gameObject.GetComponent<Animal>().Stamina -= staminaDrain;
             }
@@ -98,7 +98,7 @@ public class PredatorDecisionTree : MonoBehaviour
 
     private Animal GetTarget()
     {
-        ClearDestroyedVisibleAgents();
+        thisAnimal.ClearDestroyedVisibleAgents();
 
         foreach (Animal animal in thisAnimal.VisibleAgentsList)
         {
@@ -110,16 +110,5 @@ public class PredatorDecisionTree : MonoBehaviour
         }
 
         return null;
-    }
-
-    private void ClearDestroyedVisibleAgents()
-    {
-        for (int i = thisAnimal.VisibleAgentsList.Count - 1; i >= 0; i--)
-        {
-            if (thisAnimal.VisibleAgentsList[i] == null)
-            {
-                thisAnimal.VisibleAgentsList.RemoveAt(i);
-            }
-        }
     }
 }

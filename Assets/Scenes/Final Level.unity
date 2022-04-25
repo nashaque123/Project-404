@@ -3218,6 +3218,7 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 6991457686373930885, guid: f56576d45033d3342beccb5af7288721, type: 3}
   JaguarPrefab: {fileID: 3658587502082050007, guid: f7d855c9aa5f18d4995446b5336312b5, type: 3}
   AnteaterPrefab: {fileID: 1910738627283972407, guid: e9e34ccb3ac5af940a27249bb53d6fb2, type: 3}
+  AntPrefab: {fileID: 8996444935815390840, guid: a3471b38f4a869a499b33333cab9fe8d, type: 3}
 --- !u!4 &1114357222
 Transform:
   m_ObjectHideFlags: 0

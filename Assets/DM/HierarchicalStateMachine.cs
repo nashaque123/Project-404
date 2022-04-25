@@ -12,7 +12,7 @@ public enum StateMachine
     eDead
 }
 
-public class DecisionMaking : MonoBehaviour
+public class HierarchicalStateMachine : MonoBehaviour
 {
     private Animal thisAnimal;
     private AgentController agentController;
@@ -32,8 +32,11 @@ public class DecisionMaking : MonoBehaviour
         if (state == StateMachine.eHide && !IsPredatorWithinRange())
         {
             gameObject.GetComponent<MeshRenderer>().enabled = true;
-            state = StateMachine.eExplore;
-            agentController.UpdateAction(state);
+            State = StateMachine.eExplore;
+        }
+        else if (state == StateMachine.eAttack)
+        {
+            agentController.Attack();
         }
     }
 
@@ -43,29 +46,59 @@ public class DecisionMaking : MonoBehaviour
     {
         foreach (Animal otherAgent in thisAnimal.VisibleAgentsList)
         {
-            if (thisAnimal.PredatorList.Contains(otherAgent))
+            if (thisAnimal.PredatorList.Contains(otherAgent.gameObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>()))
             {
-                state = StateMachine.eRun;
-
                 if (agentController.Target == null ||
                     Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
                 {
                     agentController.Target = otherAgent.gameObject;
                 }
+
+                State = StateMachine.eRun;
             }
-            else if (thisAnimal.PreyList.Contains(otherAgent) && !state.Equals(StateMachine.eRun))
+            else if (thisAnimal.PreyList.Contains(otherAgent.GetComponent<ParentPrefab>().Source.GetComponent<Animal>()) && !state.Equals(StateMachine.eRun))
             {
-                state = StateMachine.eAttack;
-
                 if (agentController.Target == null ||
                     Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
                 {
                     agentController.Target = otherAgent.gameObject;
                 }
+
+                State = StateMachine.eAttack;
             }
         }
+    }
 
-        agentController.UpdateAction(state);
+    public void UpdateAction()
+    {
+        switch (state)
+        {
+            case StateMachine.eExplore:
+                //walk about
+                agentController.Target = null;
+                agentController.IsExploring = true;
+                break;
+            case StateMachine.eRest:
+                //restore stamina
+                agentController.Target = null;
+                agentController.IsExploring = false;
+                break;
+            case StateMachine.eAttack:
+                //chase prey
+                agentController.Attack();
+                break;
+            case StateMachine.eRun:
+                agentController.Run();
+                //run away
+                break;
+            case StateMachine.eHide:
+                //go in hiding place
+                agentController.EnterHidingSpot();
+                break;
+            case StateMachine.eDead:
+                Destroy(gameObject);
+                break;
+        }
     }
 
     //change state to rest when stamina is low
@@ -73,14 +106,12 @@ public class DecisionMaking : MonoBehaviour
     {
         if (state == StateMachine.eExplore && thisAnimal.Stamina < 20)
         {
-            state = StateMachine.eRest;
+            State = StateMachine.eRest;
         }
         else if (state == StateMachine.eRest && thisAnimal.Stamina > 90)
         {
-            state = StateMachine.eExplore;
+            State = StateMachine.eExplore;
         }
-
-        agentController.UpdateAction(state);
     }
 
     public void HidingSpotAvailable(GameObject hidingSpot)
@@ -89,8 +120,7 @@ public class DecisionMaking : MonoBehaviour
         if (state == StateMachine.eRun)
         {
             agentController.Target = hidingSpot;
-            state = StateMachine.eHide;
-            agentController.UpdateAction(state);
+            State = StateMachine.eHide;
         }
     }
 
@@ -100,7 +130,7 @@ public class DecisionMaking : MonoBehaviour
         foreach (Collider collider in objectsWithinRange)
         {
             //check if collider is prey
-            if (collider.gameObject.GetComponent<Animal>() != null && thisAnimal.PredatorList.Contains(collider.gameObject.GetComponent<Animal>()))
+            if (collider.gameObject.GetComponent<Animal>() != null && thisAnimal.PredatorList.Contains(collider.gameObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>()))
             {
                 return true;
             }
@@ -119,7 +149,7 @@ public class DecisionMaking : MonoBehaviour
         set
         {
             state = value;
-            agentController.UpdateAction(state);
+            UpdateAction();
         }
     }
 }

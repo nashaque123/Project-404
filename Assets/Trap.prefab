@@ -111,3 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageDealt: 10
+  ParentPrefab: {fileID: 8996444935815390840, guid: a3471b38f4a869a499b33333cab9fe8d, type: 3}
