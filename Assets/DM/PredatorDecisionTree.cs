@@ -24,7 +24,7 @@ public class PredatorDecisionTree : MonoBehaviour
         if (thisAnimal.VisibleAgentsList.Count > 0)
         {
             Animal target = GetTarget();
-            if (target.Equals(null))
+            if (target == null)
             {
                 Idle();
                 return;
@@ -98,6 +98,8 @@ public class PredatorDecisionTree : MonoBehaviour
 
     private Animal GetTarget()
     {
+        ClearDestroyedVisibleAgents();
+
         foreach (Animal animal in thisAnimal.VisibleAgentsList)
         {
             Animal prefab = animal.GetComponent<ParentPrefab>().Source.GetComponent<Animal>();
@@ -108,5 +110,16 @@ public class PredatorDecisionTree : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void ClearDestroyedVisibleAgents()
+    {
+        for (int i = thisAnimal.VisibleAgentsList.Count - 1; i >= 0; i--)
+        {
+            if (thisAnimal.VisibleAgentsList[i] == null)
+            {
+                thisAnimal.VisibleAgentsList.RemoveAt(i);
+            }
+        }
     }
 }

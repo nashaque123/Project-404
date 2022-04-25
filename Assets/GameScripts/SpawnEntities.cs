@@ -13,20 +13,32 @@ public class SpawnEntities : MonoBehaviour
     {
         GameObject player = Instantiate(PlayerPrefab, new Vector3(-20f, 1f, 20f), Quaternion.identity);
         player.GetComponent<ParentPrefab>().Source = PlayerPrefab;
-        
+
         GameObject jaguar = Instantiate(JaguarPrefab, new Vector3(-18f, 1f, -70f), Quaternion.identity);
         jaguar.GetComponent<ParentPrefab>().Source = JaguarPrefab;
 
-        GameObject jaguar1 = Instantiate(JaguarPrefab, new Vector3(8f, 1f, 70f), Quaternion.identity);
-        jaguar1.GetComponent<ParentPrefab>().Source = JaguarPrefab;
-
-        GameObject anteater = Instantiate(AnteaterPrefab, new Vector3(18f, 1f, 70f), Quaternion.identity);
+        GameObject anteater = Instantiate(AnteaterPrefab, new Vector3(20f, 1f, 50f), Quaternion.identity);
         anteater.GetComponent<ParentPrefab>().Source = AnteaterPrefab;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        RandomSpawn();
+    }
+
+    private void RandomSpawn()
+    {
+        int rand = Random.Range(0, 600);
+        if (rand == 0)
+        {
+            GameObject jaguar = Instantiate(JaguarPrefab, new Vector3(8f, 1f, 70f), Quaternion.identity);
+            jaguar.GetComponent<ParentPrefab>().Source = JaguarPrefab;
+        }
+        else if (rand == 1)
+        {
+            GameObject anteater = Instantiate(AnteaterPrefab, new Vector3(20f, 1f, 50f), Quaternion.identity);
+            anteater.GetComponent<ParentPrefab>().Source = AnteaterPrefab;
+        }
     }
 }
