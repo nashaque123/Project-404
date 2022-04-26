@@ -32,7 +32,7 @@ public class PreyRootNode : MonoBehaviour
         thisRigidbody = gameObject.GetComponent<Rigidbody>();
 
         isBeingAttackedNode = new BeingAttacked(thisAgent, thisAnimal);
-        hideNode = new Hide(thisAnimal);
+        hideNode = new Hide(thisAnimal, thisAgent);
         isAbleToSetTrapNode = new AbleToSetTrap(thisPreyWithTraps);
         setTrapNode = new SetTrap(thisPreyWithTraps);
         runAwayNode = new RunAway(thisRigidbody, thisAnimal);

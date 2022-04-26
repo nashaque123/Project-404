@@ -7,7 +7,7 @@ public class AgentController : MonoBehaviour
     private Rigidbody rb;
     private Animal thisAnimal;
     private GameObject target;
-    private bool isExploring;
+    private bool isExploring = true;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +34,7 @@ public class AgentController : MonoBehaviour
         }
         else if (target.GetComponent<MeshRenderer>().enabled == false)
         {
+            thisAnimal.VisibleAgentsList.Remove(target.GetComponent<Animal>());
             target = null;
         }
     }
@@ -57,8 +58,8 @@ public class AgentController : MonoBehaviour
             if (raycast.collider != null)
             {
                 Transform collisionObject = GameObjectExtension.GetParentFromCollision(raycast.collider);
-
-                if (collisionObject.GetComponent<Animal>() != null && collisionObject.Equals(target) && Vector3.Distance(transform.position, target.transform.position) <= thisAnimal.AttackRange)
+                if (collisionObject.GetComponent<Animal>() != null && thisAnimal.PreyList.Contains(collisionObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>())
+                    && Vector3.Distance(transform.position, target.transform.position) <= thisAnimal.AttackRange)
                 {
                     return true;
                 }
@@ -70,7 +71,7 @@ public class AgentController : MonoBehaviour
 
     public void Attack()
     {
-        if (PreyAgentWithinRange() && thisAnimal.CanAttack)
+        if (target != null && PreyAgentWithinRange() && thisAnimal.CanAttack)
         {
             StartCoroutine(thisAnimal.Attack(target.GetComponent<Animal>()));
         }

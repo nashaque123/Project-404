@@ -15,7 +15,7 @@ public class BeingAttacked : INode
 
     public bool Run()
     {
-        Collider[] objectsWithinRange = Physics.OverlapSphere(thisAnimal.transform.position, 10f);
+        Collider[] objectsWithinRange = Physics.OverlapSphere(thisAnimal.transform.position, 15f);
         foreach (Collider collider in objectsWithinRange)
         {
             //check if collider is prey
@@ -25,6 +25,7 @@ public class BeingAttacked : INode
             }
         }
 
+        thisAnimal.gameObject.GetComponent<MeshRenderer>().enabled = true;
         return false;
     }
 }

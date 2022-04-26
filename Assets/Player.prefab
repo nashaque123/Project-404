@@ -892,9 +892,10 @@ MonoBehaviour:
   maxStepSize: 10
   StepSize: 0
   staminaCost: 0.01
-  attackRange: 10
+  attackRange: 2.5
   attackRechargeTime: 0.3
   AttackPower: 20
+  HealthRegainAmount: 10
   predatorList:
   - {fileID: 3658587502082050002, guid: f7d855c9aa5f18d4995446b5336312b5, type: 3}
   preyList:

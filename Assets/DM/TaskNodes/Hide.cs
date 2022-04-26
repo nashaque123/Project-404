@@ -5,20 +5,31 @@ using UnityEngine;
 public class Hide : INode
 {
     private Animal thisAnimal;
+    private AgentController agent;
 
-    public Hide(Animal animal)
+    public Hide(Animal animal, AgentController _agent)
     {
         thisAnimal = animal;
+        agent = _agent;
     }
 
     public bool Run()
     {
+        agent.Target = null;
+
         //hide
         if (CheckForHidingSpot())
         {
-            EnterHidingSpot();
-            return true;
+            agent.Target = thisAnimal.VisibleHidingSpotList[0];
+
+            if (Vector3.Distance(agent.Target.transform.position, thisAnimal.transform.position) <= 5f)
+            {
+                EnterHidingSpot();
+                return true;
+            }
         }
+
+        thisAnimal.gameObject.GetComponent<MeshRenderer>().enabled = true;
         return false;
     }
 

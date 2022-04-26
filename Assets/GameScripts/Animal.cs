@@ -19,6 +19,7 @@ public class Animal : MonoBehaviour
     private bool canAttack = true;
     public float attackRechargeTime;
     public float AttackPower;
+    public float HealthRegainAmount;
 
     //string to manage speed caps based on stamina levels
     private string speedBuffer = "max";
@@ -60,6 +61,10 @@ public class Animal : MonoBehaviour
     {
         canAttack = false;
         target.Health -= AttackPower;
+        if (target.Health == 0f)
+        {
+            Health += HealthRegainAmount;
+        }
         ClearDestroyedVisibleAgents();
         yield return new WaitForSeconds(0.5f);
         canAttack = true;

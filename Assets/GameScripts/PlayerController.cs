@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         foreach (Collider collider in objectsWithinRange)
         {
             //check if collider is predator or prey
-            if (collider.gameObject.GetComponent<Animal>() != null &&
+            if (collider.gameObject.GetComponent<Animal>() != null && collider.gameObject.GetComponent<MeshRenderer>().enabled == true &&
                 (thisAnimal.PredatorList.Contains(collider.gameObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>())
                     || thisAnimal.PreyList.Contains(collider.gameObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>())))
             {
