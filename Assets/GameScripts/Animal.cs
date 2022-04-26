@@ -122,7 +122,11 @@ public class Animal : MonoBehaviour
                 health = 0;
                 
                 //dead
-                if (gameObject.GetComponent<HierarchicalStateMachine>() != null && gameObject.GetComponent<AgentController>() != null)
+                if (gameObject.GetComponent<PlayerController>() != null)
+                {
+                    GameObject.Find("GameManager").GetComponent<Timer>().LoadGameOverScene(false);
+                }
+                else if (gameObject.GetComponent<HierarchicalStateMachine>() != null && gameObject.GetComponent<AgentController>() != null)
                 {
                     gameObject.GetComponent<HierarchicalStateMachine>().State = StateMachine.eDead;
                 }
