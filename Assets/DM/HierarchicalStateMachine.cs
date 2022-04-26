@@ -34,9 +34,13 @@ public class HierarchicalStateMachine : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().enabled = true;
             State = StateMachine.eExplore;
         }
-        else if (state == StateMachine.eAttack)
+        else if (state == StateMachine.eAttack) //checks if prey is within range
         {
             agentController.Attack();
+        }
+        else if (state == StateMachine.eRun) //checks hiding spot is within range
+        {
+            agentController.Run();
         }
     }
 
@@ -44,16 +48,12 @@ public class HierarchicalStateMachine : MonoBehaviour
     //updates state machine accordingly
     public void CheckListOfOtherAgents()
     {
+        thisAnimal.ClearDestroyedVisibleAgents();
+
         foreach (Animal otherAgent in thisAnimal.VisibleAgentsList)
         {
             if (thisAnimal.PredatorList.Contains(otherAgent.gameObject.GetComponent<ParentPrefab>().Source.GetComponent<Animal>()))
             {
-                if (agentController.Target == null ||
-                    Vector3.Distance(transform.position, otherAgent.transform.position) < Vector3.Distance(transform.position, agentController.Target.transform.position))
-                {
-                    agentController.Target = otherAgent.gameObject;
-                }
-
                 State = StateMachine.eRun;
             }
             else if (thisAnimal.PreyList.Contains(otherAgent.GetComponent<ParentPrefab>().Source.GetComponent<Animal>()) && !state.Equals(StateMachine.eRun))

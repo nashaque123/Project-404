@@ -61,7 +61,6 @@ public class Animal : MonoBehaviour
         canAttack = false;
         target.Health -= AttackPower;
         ClearDestroyedVisibleAgents();
-        Debug.Log("target " + target.health);
         yield return new WaitForSeconds(0.5f);
         canAttack = true;
     }

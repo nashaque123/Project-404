@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7282060635995564101
 Transform:
   m_ObjectHideFlags: 0
@@ -105,7 +105,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5718383597647680682}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8541833859126951354
 MonoBehaviour:
@@ -166,7 +166,7 @@ RectTransform:
   - {fileID: 8223096373011158983}
   - {fileID: 4097150483347106493}
   m_Father: {fileID: 5718383597647680682}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -700,8 +700,8 @@ Transform:
   m_LocalPosition: {x: -18.8, y: 0.5, z: -68.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 454960184820165029}
   - {fileID: 7282060635995564101}
+  - {fileID: 454960184820165029}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab76221c65cc424997a6ca3be887f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStepSize: 15
+  maxStepSize: 12
   StepSize: 0
   staminaCost: 0.001
   attackRange: 1
@@ -804,9 +804,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &4983354911935753394
 MonoBehaviour:
@@ -869,4 +869,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TrapPrefab: {fileID: 3817154878571032058, guid: 17ea72927e987d446ae6a679aeea818d, type: 3}
-  TrapRechargeTime: 60
+  TrapRechargeTime: 10

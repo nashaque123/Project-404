@@ -14,12 +14,6 @@ public class CollisionTrigger : MonoBehaviour
         parentObject = gameObject.transform.parent.gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     //other agent collides with bubble
     private void OnTriggerEnter(Collider other)
     {

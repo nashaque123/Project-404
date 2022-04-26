@@ -6,6 +6,7 @@ public class PredatorDecisionTree : MonoBehaviour
 {
     private Animal thisAnimal;
     private AgentController thisAgent;
+    private Rigidbody thisRigidbody;
     private readonly float staminaThreshold = 20f;
     private readonly float growlRange = 10f;
     private readonly float staminaDrain = 2f;
@@ -16,6 +17,7 @@ public class PredatorDecisionTree : MonoBehaviour
     {
         thisAnimal = gameObject.GetComponent<Animal>();
         thisAgent = gameObject.GetComponent<AgentController>();
+        thisRigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -88,12 +90,20 @@ public class PredatorDecisionTree : MonoBehaviour
         else
         {
             //explore
+            Explore();
         }
     }
 
     private void Rest()
     {
         thisAnimal.Stamina += restRate;
+    }
+
+    private void Explore()
+    {
+        Vector3 moveInput = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+        thisRigidbody.MovePosition(thisRigidbody.position + (thisAnimal.StepSize * Time.deltaTime * moveInput.normalized));
+        thisAnimal.Stamina -= thisAnimal.StaminaCost;
     }
 
     private Animal GetTarget()

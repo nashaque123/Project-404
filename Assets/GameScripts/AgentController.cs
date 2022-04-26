@@ -14,6 +14,7 @@ public class AgentController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody>();
         thisAnimal = gameObject.GetComponent<Animal>();
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -39,17 +40,19 @@ public class AgentController : MonoBehaviour
 
     void Explore()
     {
-        //replace with flocking
-        /*Vector3 moveInput = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-        rb.MovePosition(rb.position + (thisAnimal.StepSize * Time.deltaTime * moveInput.normalized));
-        thisAnimal.Stamina -= thisAnimal.StaminaCost;*/
+        //TODO: replace with flocking
+
+        Vector3 moveInput = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+        rb.AddForce((moveInput.normalized * thisAnimal.StepSize) - rb.velocity, ForceMode.VelocityChange);
+        thisAnimal.Stamina -= thisAnimal.StaminaCost;
     }
 
     //check if other agent is within attacking range
     public bool PreyAgentWithinRange()
     {
+        Vector3 direction = (target.transform.position - transform.position).normalized;
         //check if any objects are blocking path to agent
-        if (Physics.Raycast(transform.position, target.transform.position, out RaycastHit raycast))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit raycast))
         {
             if (raycast.collider != null)
             {

@@ -7,6 +7,7 @@ public class PreyRootNode : MonoBehaviour
     private AgentController thisAgent;
     private Animal thisAnimal;
     private PreyWithTraps thisPreyWithTraps;
+    private Rigidbody thisRigidbody;
 
     private Selector rootSelector = new Selector();
     private Sequence attackedSequence = new Sequence();
@@ -16,11 +17,11 @@ public class PreyRootNode : MonoBehaviour
     private Sequence trapSequence = new Sequence();
     private INode isAbleToSetTrapNode;
     private INode setTrapNode;
-    private INode runAwayNode = new RunAway();
+    private INode runAwayNode;
     private Sequence checkVitalsSequence = new Sequence();
     private INode isHealthOrStaminaLowNode;
     private INode restNode;
-    private INode exploreNode = new Explore();
+    private INode exploreNode;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +29,16 @@ public class PreyRootNode : MonoBehaviour
         thisAgent = gameObject.GetComponent<AgentController>();
         thisAnimal = gameObject.GetComponent<Animal>();
         thisPreyWithTraps = gameObject.GetComponent<PreyWithTraps>();
+        thisRigidbody = gameObject.GetComponent<Rigidbody>();
 
         isBeingAttackedNode = new BeingAttacked(thisAgent, thisAnimal);
         hideNode = new Hide(thisAnimal);
         isAbleToSetTrapNode = new AbleToSetTrap(thisPreyWithTraps);
         setTrapNode = new SetTrap(thisPreyWithTraps);
+        runAwayNode = new RunAway(thisRigidbody, thisAnimal);
         isHealthOrStaminaLowNode = new HealthOrStaminaLow(thisAnimal);
         restNode = new Recover(thisAnimal);
+        exploreNode = new Explore(thisRigidbody, thisAnimal);
 
         rootSelector.ChildNodes.Add(attackedSequence);
         rootSelector.ChildNodes.Add(checkVitalsSequence);

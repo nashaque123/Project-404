@@ -889,7 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab76221c65cc424997a6ca3be887f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStepSize: 20
+  maxStepSize: 10
   StepSize: 0
   staminaCost: 0.01
   attackRange: 10
