@@ -65,18 +65,24 @@ public class CollisionTrigger : MonoBehaviour
         //if agent then add to list
         if (collisionObject.gameObject.GetComponent<Animal>() != null)
         {
-            thisAnimal.VisibleAgentsList.Add(collisionObject.gameObject.GetComponent<Animal>());
-            if (gameObject.GetComponentInParent<HierarchicalStateMachine>() != null)
+            if (!thisAnimal.VisibleAgentsList.Contains(collisionObject.gameObject.GetComponent<Animal>()))
             {
-                gameObject.GetComponentInParent<HierarchicalStateMachine>().CheckListOfOtherAgents();
+                thisAnimal.VisibleAgentsList.Add(collisionObject.gameObject.GetComponent<Animal>());
+                if (gameObject.GetComponentInParent<HierarchicalStateMachine>() != null)
+                {
+                    gameObject.GetComponentInParent<HierarchicalStateMachine>().CheckListOfOtherAgents();
+                }
             }
         }
         else if (collisionObject.gameObject.layer == 7) //check if object has hiding spot layer
         {
-            thisAnimal.VisibleHidingSpotList.Add(collisionObject.gameObject);
-            if (gameObject.GetComponentInParent<HierarchicalStateMachine>() != null)
+            if (!thisAnimal.VisibleHidingSpotList.Contains(collisionObject.gameObject))
             {
-                gameObject.GetComponentInParent<HierarchicalStateMachine>().HidingSpotAvailable(collisionObject.gameObject);
+                thisAnimal.VisibleHidingSpotList.Add(collisionObject.gameObject);
+                if (gameObject.GetComponentInParent<HierarchicalStateMachine>() != null)
+                {
+                    gameObject.GetComponentInParent<HierarchicalStateMachine>().HidingSpotAvailable(collisionObject.gameObject);
+                }
             }
         }
     }
