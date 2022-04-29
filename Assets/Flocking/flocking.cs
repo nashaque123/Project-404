@@ -19,6 +19,7 @@ public class flocking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Making the colliders accessible in the inspector
         neighbourCollider = gameObject.GetComponent<SphereCollider>();
         neighbourCollider.radius = radius;
         neighbours = new List<GameObject>();
@@ -28,10 +29,10 @@ public class flocking : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(gameObject.name + " " + neighbours.Count);
 
         Vector3 alignment = new Vector3(0, 0, 0);
         //Alignment
+        //Moving to the average movement of the other neighbours
 
         //for each agent
         foreach (GameObject neighbour in neighbours)
@@ -52,7 +53,6 @@ public class flocking : MonoBehaviour
         foreach (GameObject neighbour in neighbours)
         {
             cohesion += neighbour.transform.position;
-            //cohesion += gameObject.transform.position - neighbour.transform.position;
 
         }
 
@@ -81,24 +81,22 @@ public class flocking : MonoBehaviour
         transform.Translate(velocity2 * Time.deltaTime);
     }
 
+    //If 2 agents collide with each other, it adds it to the list of neighbours
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log(collision.gameObject.GetType());
 
         if (collision.gameObject.CompareTag("agent"))
         {
-            //Debug.Log ("agent");
             neighbours.Add(collision.gameObject);
-            //Debug.Log(neighbours.Count); 
         }
     }
 
+    //When the 2 agents stop colliding, it removes it from the list of neighbours
     private void OnTriggerExit(Collider collision)
     {
         if (collision.gameObject.CompareTag("agent"))
         {
             neighbours.Remove(collision.gameObject);
-            //Debug.Log(neighbours.Count);
         }
     }
 }
